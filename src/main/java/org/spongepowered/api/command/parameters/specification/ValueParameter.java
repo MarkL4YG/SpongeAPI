@@ -22,6 +22,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.specification;
+
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.Parameter;
+import org.spongepowered.api.text.Text;
+
+public interface ValueParameter extends ValueCompleter, ValueParser {
+
+    /**
+     * Gets the usage string for the argument.
+     *
+     * @param key The {@link Text} that defines the parameter key
+     * @param source The source requesting the usage
+     * @return The usage
+     */
+    default Text getUsage(Text key, CommandSource source) {
+        return key;
+    }
+
+    /**
+     * Gets this {@link ValueParameter} as a {@link Parameter}.
+     *
+     * @param key The key for the parameter.
+     * @param modifiers The {@link ValueParameterModifier}s to link with this parameter
+     * @return The {@link Parameter}
+     */
+    default Parameter asParameter(Text key, ValueParameterModifier... modifiers) {
+        return Parameter.builder().key(key).parser(this).addModifiers(modifiers).build();
+    }
+
+}

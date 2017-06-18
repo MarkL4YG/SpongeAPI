@@ -22,6 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.specification;
+
+import org.spongepowered.api.command.parameters.ParameterParseException;
+
+/**
+ * Tracks the parsing of {@link ValueParameterModifier} and {@link ValueParameter}
+ * chains.
+ */
+public interface ParsingContext {
+
+    /**
+     * Parse the next {@link ValueParameterModifier} or {@link ValueParameter} in the
+     * chain.
+     *
+     * @throws ParameterParseException if thrown by any {@link ValueParameterModifier}
+     * or {@link ValueParameter} in the chain.
+     */
+    void next() throws ParameterParseException;
+
+}

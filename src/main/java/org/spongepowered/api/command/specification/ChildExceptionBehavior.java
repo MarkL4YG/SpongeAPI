@@ -22,6 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.specification;
+
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import java.util.Optional;
+
+/**
+ * Defines the behavior when a child command throws a {@link CommandException}.
+ */
+@CatalogedBy(ChildExceptionBehaviors.class)
+public interface ChildExceptionBehavior extends CatalogType {
+
+    /**
+     * Handles an exception from a child command.
+     *
+     * @param exception The exception to handle
+     * @return The {@link CommandException}, should it be stored
+     * @throws CommandException thrown if command execution should terminate
+     */
+    Optional<CommandException> onChildCommandError(CommandException exception) throws CommandException;
+
+}

@@ -22,6 +22,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.specification;
+
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.CommandExecutionContext;
+
+/**
+ * Interface containing the method directing how a certain command will
+ * be executed.
+ */
+@FunctionalInterface
+public interface CommandExecutor {
+
+    /**
+     * Callback for the execution of a command.
+     *
+     * @param source The {@link CommandSource} who is executing this command
+     * @param context The parsed command arguments for this command
+     * @return the result of executing this command
+     * @throws CommandException If a user-facing error occurs while
+     *     executing this command
+     */
+    CommandResult execute(CommandSource source, CommandExecutionContext context) throws CommandException;
+
+}

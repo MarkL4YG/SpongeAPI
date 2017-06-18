@@ -22,6 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.tokens;
+
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.command.parameters.Parameter;
+import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import java.util.List;
+
+/**
+ * Provides a function to transform raw strings into tokens, which can be
+ * consumed by {@link Parameter}s.
+ */
+@CatalogedBy(InputTokenizers.class)
+public interface InputTokenizer extends CatalogType {
+
+    /**
+     * Take the input string and split it as appropriate into argument tokens.
+     *
+     * @param arguments The provided arguments
+     * @param lenient Whether to parse leniently
+     * @return The tokenized strings. Empty list if error occurs
+     * @throws ParameterParseException if an invalid input is provided
+     */
+    List<SingleArg> tokenize(String arguments, boolean lenient) throws ParameterParseException;
+
+}

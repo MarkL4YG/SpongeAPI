@@ -22,6 +22,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.specification;
+
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.CommandExecutionContext;
+import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
+
+import java.util.Optional;
+
+@FunctionalInterface
+public interface ValueParser {
+
+    /**
+     * Gets the value for the parameter.
+     *
+     * <p>This should have no side effects, and should not update the {@link CommandExecutionContext}</p>.
+     *
+     * @param source The {@link CommandSource} that has executed this command
+     * @param args The {@link TokenizedArgs} that contains the unparsed arguments
+     * @param context The {@link CommandExecutionContext} containing the state about this command
+     * @return Returns the value, usually from {@link TokenizedArgs#next()}
+     */
+    Optional<Object> getValue(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException;
+
+}

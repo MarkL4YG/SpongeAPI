@@ -22,6 +22,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-@Deprecated
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.tokens;
+
+/**
+ * This represents a single argument with its start and end indexes
+ * in the associated raw input string.
+ */
+public interface SingleArg {
+
+    /**
+     * Gets the argument value.
+     *
+     * @return The argument
+     */
+    String getArg();
+
+    /**
+     * Gets the index in the unparsed string that this argument starts at.
+     *
+     * @return The index.
+     */
+    int getStartIndex();
+
+    /**
+     * Gets the index in the unparsed string that this argument ends at.
+     *
+     * @return The index
+     */
+    int getEndIndex();
+
+}
