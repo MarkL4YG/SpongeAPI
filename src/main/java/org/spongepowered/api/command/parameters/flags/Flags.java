@@ -87,6 +87,13 @@ public interface Flags {
     Text getUsage(CommandSource src);
 
     /**
+     * If true, flags will only be parsed at the beginning of the command.
+     *
+     * @return true if so
+     */
+    boolean isAnchored();
+
+    /**
      * A builder for creating a flag element.
      */
     interface Builder extends ResettableBuilder<Flags, Builder> {

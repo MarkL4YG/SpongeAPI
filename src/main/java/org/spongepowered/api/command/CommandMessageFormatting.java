@@ -40,6 +40,8 @@ public class CommandMessageFormatting {
     public static final Text LT_TEXT = Text.of("<");
     public static final Text GT_TEXT = Text.of(">");
     public static final Text ELLIPSIS_TEXT = Text.of("…");
+    public static final Text LEFT_PARENTHESIS = Text.of("(");
+    public static final Text RIGHT_PARENTHESIS = Text.of(")");
 
     /**
      * Format text to be output as an error directly to a sender. Not necessary

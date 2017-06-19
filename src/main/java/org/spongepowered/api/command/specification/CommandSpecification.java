@@ -35,6 +35,7 @@ import org.spongepowered.api.util.ResettableBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * A high level interface for {@link CommandCallable}s that handles argument
@@ -50,6 +51,16 @@ public interface CommandSpecification extends CommandCallable {
     static Builder builder() {
         return Sponge.getRegistry().createBuilder(Builder.class);
     }
+
+    /**
+     * Return a longer description for this command. This description is
+     * composed of at least all present of the short description, the usage
+     * statement, and the extended description
+     *
+     * @param source The source to get the extended description for
+     * @return the extended description
+     */
+    Optional<Text> getExtendedDescription(CommandSource source);
 
     /**
      * A high level {@link Builder} for creating a command.

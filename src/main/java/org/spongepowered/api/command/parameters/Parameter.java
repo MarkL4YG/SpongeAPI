@@ -91,7 +91,7 @@ public interface Parameter {
      * @param parameters The {@link Parameter}s
      * @return The {@link Parameter}
      */
-    static Parameter seq(Collection<Parameter> parameters) {
+    static Parameter seq(Iterable<Parameter> parameters) {
         return Sponge.getRegistry().createBuilder(SequenceBuilder.class).requireAll(true).add(parameters).build();
     }
 
@@ -613,7 +613,7 @@ public interface Parameter {
          * @param parameters The parameters to add
          * @return This builder, for chaining
          */
-        SequenceBuilder add(Collection<Parameter> parameters);
+        SequenceBuilder add(Iterable<Parameter> parameters);
 
         /**
          * Adds a set of {@link Parameter}s to this builder.
