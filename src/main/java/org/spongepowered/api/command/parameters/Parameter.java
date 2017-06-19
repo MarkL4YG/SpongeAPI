@@ -151,6 +151,18 @@ public interface Parameter {
          * @param key The key.
          * @return This builder, for chaining
          */
+        default Builder key(String key) {
+            return key(Text.of(key));
+        }
+
+        /**
+         * The key that the parameter will place parsed values into.
+         *
+         * <p>Mandatory</p>
+         *
+         * @param key The key.
+         * @return This builder, for chaining
+         */
         Builder key(Text key);
 
         /**

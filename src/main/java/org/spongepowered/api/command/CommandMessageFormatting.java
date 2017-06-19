@@ -32,6 +32,8 @@ public class CommandMessageFormatting {
     private CommandMessageFormatting() {
     }
 
+    public static final Text LEFT_SQUARE = Text.of("[");
+    public static final Text RIGHT_SQUARE = Text.of("]");
     public static final Text PIPE_TEXT = Text.of("|");
     public static final Text SPACE_TEXT = Text.of(" ");
     public static final Text STAR_TEXT = Text.of("*");
