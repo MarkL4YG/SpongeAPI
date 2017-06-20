@@ -25,26 +25,32 @@
 package org.spongepowered.api.command;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import javax.annotation.Nullable;
 
 /**
  * Represents the result of a command in Sponge.
+ *
+ * @deprecated Use {@link Result} instead
  */
-public class CommandResult {
+@Deprecated
+@SuppressWarnings("deprecation")
+public class CommandResult implements Result {
     private static final CommandResult EMPTY = builder().build();
     private static final CommandResult SUCCESS = builder().successCount(1).build();
-    private final Optional<Integer> successCount;
-    private final Optional<Integer> affectedBlocks;
-    private final Optional<Integer> affectedEntities;
-    private final Optional<Integer> affectedItems;
-    private final Optional<Integer> queryResult;
+    private final OptionalInt successCount;
+    private final OptionalInt affectedBlocks;
+    private final OptionalInt affectedEntities;
+    private final OptionalInt affectedItems;
+    private final OptionalInt queryResult;
 
     /**
      * Returns a {@link Builder}.
      *
      * @return A new command result builder
      */
+    @Deprecated
     public static Builder builder() {
         return new Builder();
     }
@@ -135,11 +141,11 @@ public class CommandResult {
      */
     CommandResult(@Nullable Integer successCount, @Nullable Integer affectedBlocks, @Nullable Integer affectedEntities,
             @Nullable Integer affectedItems, @Nullable Integer queryResult) {
-        this.successCount = Optional.ofNullable(successCount);
-        this.affectedBlocks = Optional.ofNullable(affectedBlocks);
-        this.affectedEntities = Optional.ofNullable(affectedEntities);
-        this.affectedItems = Optional.ofNullable(affectedItems);
-        this.queryResult = Optional.ofNullable(queryResult);
+        this.successCount = fromInteger(successCount);
+        this.affectedBlocks = fromInteger(affectedBlocks);
+        this.affectedEntities = fromInteger(affectedEntities);
+        this.affectedItems = fromInteger(affectedItems);
+        this.queryResult = fromInteger(queryResult);
     }
 
     /**
@@ -148,7 +154,7 @@ public class CommandResult {
      * @return The success count of the command
      */
     public Optional<Integer> getSuccessCount() {
-        return this.successCount;
+        return from(this.successCount);
     }
 
     /**
@@ -158,7 +164,7 @@ public class CommandResult {
      *         exists
      */
     public Optional<Integer> getAffectedBlocks() {
-        return this.affectedBlocks;
+        return from(this.affectedBlocks);
     }
 
     /**
@@ -168,7 +174,7 @@ public class CommandResult {
      *         exists
      */
     public Optional<Integer> getAffectedEntities() {
-        return this.affectedEntities;
+        return from(this.affectedEntities);
     }
 
     /**
@@ -178,7 +184,7 @@ public class CommandResult {
      *         exists
      */
     public Optional<Integer> getAffectedItems() {
-        return this.affectedItems;
+        return from(this.affectedItems);
     }
 
     /**
@@ -188,7 +194,48 @@ public class CommandResult {
      * @return The query result of the command, if one exists
      */
     public Optional<Integer> getQueryResult() {
+        return from(this.queryResult);
+    }
+
+    @Override
+    public OptionalInt successCount() {
+        return this.successCount;
+    }
+
+    @Override
+    public OptionalInt affectedBlocks() {
+        return this.affectedBlocks;
+    }
+
+    @Override
+    public OptionalInt affectedEntities() {
+        return this.affectedEntities;
+    }
+
+    @Override
+    public OptionalInt affectedItems() {
+        return this.affectedItems;
+    }
+
+    @Override
+    public OptionalInt queryResult() {
         return this.queryResult;
+    }
+
+    private static OptionalInt fromInteger(@Nullable Integer integer) {
+        if (integer == null) {
+            return OptionalInt.empty();
+        }
+
+        return OptionalInt.of(integer);
+    }
+
+    private static Optional<Integer> from(OptionalInt optionalInt) {
+        if (optionalInt.isPresent()) {
+            return Optional.of(optionalInt.getAsInt());
+        }
+
+        return Optional.empty();
     }
 
     /**
