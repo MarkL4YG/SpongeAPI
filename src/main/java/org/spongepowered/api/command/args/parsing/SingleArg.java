@@ -30,7 +30,11 @@ import com.google.common.base.Objects;
 /**
  * This represents a single argument with its start and end indexes
  * in the associated raw input string.
+ *
+ * @deprecated To be replaced with
+ * {@link org.spongepowered.api.command.parameters.tokens.SingleArg}
  */
+@Deprecated
 public final class SingleArg {
     private final String value;
     private final int startIdx;

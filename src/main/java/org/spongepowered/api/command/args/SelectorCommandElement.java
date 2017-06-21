@@ -26,6 +26,8 @@ package org.spongepowered.api.command.args;
 
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.Parameter;
+import org.spongepowered.api.command.parameters.specification.impl.SelectorValueParameter;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.selector.Selector;
 
@@ -36,7 +38,11 @@ import javax.annotation.Nullable;
 
 /**
  * Abstract command element that matches values based on a {@link Selector}.
+ *
+ * @deprecated Use the new {@link Parameter} system instead, extend
+ * {@link SelectorValueParameter}.
  */
+@Deprecated
 public abstract class SelectorCommandElement extends PatternMatchingCommandElement {
 
     protected SelectorCommandElement(@Nullable Text key) {

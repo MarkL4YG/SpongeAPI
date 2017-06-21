@@ -29,6 +29,8 @@ import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.Parameter;
+import org.spongepowered.api.command.parameters.specification.impl.PatternMatchingValueParameter;
 import org.spongepowered.api.text.Text;
 
 import java.util.Collections;
@@ -40,7 +42,11 @@ import javax.annotation.Nullable;
 
 /**
  * Abstract command element that matches values based on pattern.
+ *
+ * @deprecated Use the new {@link Parameter} system instead, extend
+ * {@link PatternMatchingValueParameter}.
  */
+@Deprecated
 public abstract class PatternMatchingCommandElement extends CommandElement {
     private static final Text nullKeyArg = t("argument");
 

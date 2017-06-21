@@ -27,6 +27,7 @@ package org.spongepowered.api.command.args;
 import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
 
 import org.spongepowered.api.command.args.parsing.SingleArg;
+import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 import org.spongepowered.api.text.Text;
 
 import java.util.ArrayList;
@@ -37,7 +38,10 @@ import java.util.stream.Collectors;
 
 /**
  * Holder for command arguments.
+ *
+ * @deprecated To be replaced by {@link TokenizedArgs}
  */
+@Deprecated
 public final class CommandArgs {
     private final String rawInput;
     private List<SingleArg> args;

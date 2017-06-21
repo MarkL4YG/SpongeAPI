@@ -28,11 +28,16 @@ import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
+import org.spongepowered.api.command.specification.CommandSpecification;
 
 /**
  * Interface containing the method directing how a certain command will
  * be executed.
+ *
+ * @deprecated Use {@link CommandSpecification} and
+ * {@link org.spongepowered.api.command.specification.CommandExecutor}
  */
+@Deprecated
 @FunctionalInterface
 public interface CommandExecutor {
     /**

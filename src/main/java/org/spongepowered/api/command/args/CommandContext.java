@@ -41,7 +41,10 @@ import java.util.Optional;
 /**
  * Context that a command is executed in.
  * This object stores parsed arguments from other commands
+ *
+ * @deprecated To be replaced by {@link org.spongepowered.api.command.parameters.tokens.TokenizedArgs}
  */
+@Deprecated
 public final class CommandContext {
 
     /**

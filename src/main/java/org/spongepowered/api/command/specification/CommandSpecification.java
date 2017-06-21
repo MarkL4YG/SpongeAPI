@@ -25,6 +25,7 @@
 package org.spongepowered.api.command.specification;
 
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.Command;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.Parameter;
@@ -38,10 +39,10 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A high level interface for {@link CommandCallable}s that handles argument
+ * A high level interface for {@link Command}s that handles argument
  * parsing and subcommand handling.
  */
-public interface CommandSpecification extends CommandCallable {
+public interface CommandSpecification extends Command {
 
     /**
      * Gets a builder for building a {@link CommandSpecification}
@@ -68,34 +69,34 @@ public interface CommandSpecification extends CommandCallable {
     interface Builder extends ResettableBuilder<CommandSpecification, Builder> {
 
         /**
-         * Adds a {@link CommandCallable} as a child to this command, under the
+         * Adds a {@link Command} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link CommandCallable} that is a child.
+         * @param child The {@link Command} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(CommandCallable child, String... keys);
+        Builder addChild(Command child, String... keys);
 
         /**
-         * Adds a {@link CommandCallable} as a child to this command, under the
+         * Adds a {@link Command} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link CommandCallable} that is a child.
+         * @param child The {@link Command} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(CommandCallable child, Iterable<String> keys);
+        Builder addChild(Command child, Iterable<String> keys);
 
         /**
-         * Adds multiple {@link CommandCallable} as children to this command,
+         * Adds multiple {@link Command} as children to this command,
          * under the supplied keys. The keys are case insensitive.
          *
          * @param children The {@link Map} that contains a mapping of keys to
-         *                 their respective {@link CommandCallable} children.
+         *                 their respective {@link Command} children.
          * @return This builder, for chaining
          */
-        Builder addChildren(Map<? extends Iterable<String>, CommandCallable> children);
+        Builder addChildren(Map<? extends Iterable<String>, Command> children);
 
         /**
          * If this is set to true, then if the parent command (this) requires
@@ -126,6 +127,19 @@ public interface CommandSpecification extends CommandCallable {
         Builder childExceptionBehavior(ChildExceptionBehavior exceptionBehavior);
 
         /**
+         * Provides a simple description for this command, typically no more
+         * than one line.
+         *
+         * <p>Fuller descriptions should be provided through
+         * {@link #extendedDescription(Text)}</p>
+         *
+         * @param description The description to use, or {@code null} for no
+         *                    description
+         * @return This builder, for chaining
+         */
+        Builder description(@Nullable Text description);
+
+        /**
          * Performs the logic of the command.
          *
          * <p>This is only optional if child commands are specified.</p>
@@ -139,7 +153,7 @@ public interface CommandSpecification extends CommandCallable {
          * Provides the description for this command.
          *
          * <p>A one line summary should be provided to
-         * {@link #simpleDescription(Text)}</p>
+         * {@link #description(Text)}</p>
          *
          * @param extendedDescription The description to use, or {@code null}
          *                            for no description.
@@ -193,19 +207,6 @@ public interface CommandSpecification extends CommandCallable {
          * @return This builder, for chaining
          */
         Builder permission(@Nullable String permission);
-
-        /**
-         * Provides a simple description for this command, typically no more
-         * than one line.
-         *
-         * <p>Fuller descriptions should be provided through
-         * {@link #extendedDescription(Text)}</p>
-         *
-         * @param description The description to use, or {@code null} for no
-         *                    description
-         * @return This builder, for chaining
-         */
-        Builder simpleDescription(@Nullable Text description);
 
         /**
          * Builds this command.

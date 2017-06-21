@@ -31,6 +31,8 @@ import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
 
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.flags.Flags;
+import org.spongepowered.api.command.specification.CommandSpecification;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.StartsWithPredicate;
 
@@ -46,6 +48,10 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+/**
+ * @deprecated In favour of {@link Flags}
+ */
+@Deprecated
 public final class CommandFlags extends CommandElement {
     @Nullable
     private final CommandElement childElement;
@@ -340,6 +346,9 @@ public final class CommandFlags extends CommandElement {
 
     }
 
+    /**
+     * @deprecated Use the {@link Flags.Builder} with {@link CommandSpecification}
+     */
     public static class Builder {
         private final Map<List<String>, CommandElement> usageFlags = new HashMap<>();
         private final Map<String, CommandElement> shortFlags = new HashMap<>();

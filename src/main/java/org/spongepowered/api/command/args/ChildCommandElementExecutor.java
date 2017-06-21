@@ -49,6 +49,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
 
+@Deprecated
 public class ChildCommandElementExecutor extends CommandElement implements CommandExecutor {
     private static final AtomicInteger COUNTER = new AtomicInteger();
 
@@ -181,7 +182,7 @@ public class ChildCommandElementExecutor extends CommandElement implements Comma
             return spec.getExecutor().execute(src, args);
         }
         final String arguments = args.<String>getOne(getUntranslatedKey() + "_args").orElse("");
-        return mapping.getCallable().process(src, arguments);
+        return CommandResult.fromResult(mapping.getCallable().process(src, arguments));
     }
 
     @Override

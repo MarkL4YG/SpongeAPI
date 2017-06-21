@@ -26,11 +26,15 @@ package org.spongepowered.api.command.args;
 
 import com.google.common.base.Strings;
 import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.parameters.ParameterParseException;
 import org.spongepowered.api.text.Text;
 
 /**
  * Exception thrown when an error occurs while parsing arguments.
+ *
+ * @deprecated To be replaced with {@link ParameterParseException}.
  */
+@Deprecated
 public class ArgumentParseException extends CommandException {
     private static final long serialVersionUID = -8555316116315990226L;
 

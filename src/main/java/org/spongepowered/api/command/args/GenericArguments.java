@@ -37,6 +37,9 @@ import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandMessageFormatting;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.Parameter;
+import org.spongepowered.api.command.parameters.specification.ValueParameterModifiers;
+import org.spongepowered.api.command.parameters.specification.ValueParameters;
 import org.spongepowered.api.command.source.ProxySource;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.living.player.Player;
@@ -75,7 +78,11 @@ import javax.annotation.Nullable;
 
 /**
  * Class containing factory methods for common command elements.
+ *
+ * @deprecated Use the {@link Parameter} system, specifically
+ * {@link ValueParameters} and {@link ValueParameterModifiers}
  */
+@Deprecated
 public final class GenericArguments {
 
     private static final CommandElement NONE = new SequenceCommandElement(ImmutableList.<CommandElement>of());

@@ -61,7 +61,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(Object plugin, CommandCallable callable, String... alias);
+    Optional<CommandMapping> register(Object plugin, Command callable, String... alias);
 
     /**
      * Register a given command using the given list of aliases.
@@ -82,7 +82,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(Object plugin, CommandCallable callable, List<String> aliases);
+    Optional<CommandMapping> register(Object plugin, Command callable, List<String> aliases);
 
     /**
      * Register a given command using a given list of aliases.
@@ -109,7 +109,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(Object plugin, CommandCallable callable, List<String> aliases, Function<List<String>, List<String>> callback);
+    Optional<CommandMapping> register(Object plugin, Command callable, List<String> aliases, Function<List<String>, List<String>> callback);
 
     /**
      * Remove a command identified by the given mapping.
@@ -160,7 +160,7 @@ public interface CommandManager extends Dispatcher {
      * @return The result of a command being processed
      */
     @Override
-    CommandResult process(CommandSource source, String arguments);
+    Result process(CommandSource source, String arguments);
 
     /**
      * Gets a list of suggestions based on input.

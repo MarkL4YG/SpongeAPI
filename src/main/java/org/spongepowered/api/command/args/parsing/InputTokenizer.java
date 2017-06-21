@@ -28,6 +28,11 @@ import org.spongepowered.api.command.args.ArgumentParseException;
 
 import java.util.List;
 
+/**
+ * @deprecated
+ * See {@link org.spongepowered.api.command.parameters.tokens.InputTokenizer}
+ */
+@Deprecated
 public interface InputTokenizer {
 
     /**

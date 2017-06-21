@@ -46,6 +46,21 @@ public class CommandResult implements Result {
     private final OptionalInt queryResult;
 
     /**
+     * Gets a {@link CommandResult} from a {@link Result}.
+     *
+     * @param result The {@link Result}
+     * @return The appropriate {@link CommandResult}
+     */
+    public static CommandResult fromResult(Result result) {
+        if (result instanceof CommandResult) {
+            return (CommandResult) result;
+        }
+
+        return new CommandResult(result.successCount(), result.affectedBlocks(), result.affectedEntities(), result.affectedItems(),
+                result.queryResult());
+    }
+
+    /**
      * Returns a {@link Builder}.
      *
      * @return A new command result builder
@@ -128,6 +143,24 @@ public class CommandResult implements Result {
      */
     public static CommandResult queryResult(int count) {
         return builder().queryResult(count).build();
+    }
+
+    /**
+     * Constructs a new command result.
+     *
+     * @param successCount The success count
+     * @param affectedBlocks The number of affected blocks
+     * @param affectedEntities The number of affected entities
+     * @param affectedItems The number of affected items
+     * @param queryResult The query result
+     */
+    private CommandResult(OptionalInt successCount, OptionalInt affectedBlocks, OptionalInt affectedEntities,
+            OptionalInt affectedItems, OptionalInt queryResult) {
+        this.successCount = successCount;
+        this.affectedBlocks = affectedBlocks;
+        this.affectedEntities = affectedEntities;
+        this.affectedItems = affectedItems;
+        this.queryResult = queryResult;
     }
 
     /**

@@ -32,6 +32,9 @@ import org.spongepowered.api.text.Text;
 import javax.annotation.Nullable;
 import java.util.Collection;
 
+/**
+ * Exception thrown when a {@link Parameter} cannot parse an argument.
+ */
 // TODO: Display multiple errors.
 public class ParameterParseException extends CommandException {
     private static final long serialVersionUID = 820209656566192976L;

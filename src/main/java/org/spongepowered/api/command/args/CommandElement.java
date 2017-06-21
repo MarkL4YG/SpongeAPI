@@ -25,6 +25,9 @@
 package org.spongepowered.api.command.args;
 
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.Parameter;
+import org.spongepowered.api.command.parameters.specification.ValueParameter;
+import org.spongepowered.api.command.parameters.specification.ValueParameterModifier;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.TranslatableText;
 
@@ -34,6 +37,10 @@ import javax.annotation.Nullable;
 
 /**
  * Represents a command argument element.
+ *
+ * @deprecated Use the {@link Parameter} system instead, specifically
+ * {@link ValueParameter} or {@link ValueParameterModifier} instead, or, if a
+ * low level element is needed, {@link Parameter}.
  */
 public abstract class CommandElement {
     @Nullable

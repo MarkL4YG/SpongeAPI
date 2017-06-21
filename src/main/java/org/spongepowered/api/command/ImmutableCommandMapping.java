@@ -35,7 +35,10 @@ import java.util.Set;
 /**
  * An immutable command mapping instance that returns the same objects that
  * this instance is constructed with.
+ *
+ * @deprecated Should not be used by API
  */
+@Deprecated
 public final class ImmutableCommandMapping implements CommandMapping {
 
     private final String primary;
