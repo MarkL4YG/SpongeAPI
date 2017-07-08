@@ -112,6 +112,76 @@ public interface CommandManager extends Dispatcher {
     Optional<CommandMapping> register(Object plugin, CommandLowLevel callable, List<String> aliases, Function<List<String>, List<String>> callback);
 
     /**
+     * Register a given command using the given list of aliases.
+     *
+     * <p>If there is a conflict with one of the aliases (i.e. that alias
+     * is already assigned to another command), then the alias will be skipped.
+     * It is possible for there to be no alias to be available out of
+     * the provided list of aliases, which would mean that the command would not
+     * be assigned to any aliases.</p>
+     *
+     * <p>The first non-conflicted alias becomes the "primary alias."</p>
+     *
+     * @param pluginContainer A {@link PluginContainer}
+     * @param callable The command
+     * @param alias An array of aliases
+     * @return The registered command mapping, unless no aliases could be
+     *     registered
+     * @throws IllegalArgumentException Thrown if {@code plugin} is not a
+     *     plugin instance
+     */
+    Optional<CommandMapping> register(PluginContainer pluginContainer, CommandLowLevel callable, String... alias);
+
+    /**
+     * Register a given command using the given list of aliases.
+     *
+     * <p>If there is a conflict with one of the aliases (i.e. that alias
+     * is already assigned to another command), then the alias will be skipped.
+     * It is possible for there to be no alias to be available out of
+     * the provided list of aliases, which would mean that the command would
+     * not be assigned to any aliases.</p>
+     *
+     * <p>The first non-conflicted alias becomes the "primary alias."</p>
+     *
+     * @param pluginContainer A {@link PluginContainer}
+     * @param callable The command
+     * @param aliases A list of aliases
+     * @return The registered command mapping, unless no aliases could be
+     *     registered
+     * @throws IllegalArgumentException Thrown if {@code plugin} is not a
+     *     plugin instance
+     */
+    Optional<CommandMapping> register(PluginContainer pluginContainer, CommandLowLevel callable, List<String> aliases);
+
+    /**
+     * Register a given command using a given list of aliases.
+     *
+     * <p>The provided callback function will be called with a list of aliases
+     * that are not taken (from the list of aliases that were requested) and
+     * it should return a list of aliases to actually register. Aliases may be
+     * removed, and if no aliases remain, then the command will not be
+     * registered. It may be possible that no aliases are available, and thus
+     * the callback would receive an empty list. New aliases should not be added
+     * to the list in the callback as this may cause
+     * {@link IllegalArgumentException} to be thrown.</p>
+     *
+     * <p>The first non-conflicted alias becomes the "primary alias."</p>
+     *
+     * @param pluginContainer A {@link PluginContainer}
+     * @param callable The command
+     * @param aliases A list of aliases
+     * @param callback The callback
+     * @return The registered command mapping, unless no aliases could be
+     *     registered
+     * @throws IllegalArgumentException Thrown if new conflicting aliases are
+     *     added in the callback
+     * @throws IllegalArgumentException Thrown if {@code plugin} is not a
+     *     plugin instance
+     */
+    Optional<CommandMapping> register(PluginContainer pluginContainer, CommandLowLevel callable, List<String> aliases, Function<List<String>,
+            List<String>> callback);
+
+    /**
      * Remove a command identified by the given mapping.
      *
      * @param mapping The mapping
@@ -148,6 +218,15 @@ public interface CommandManager extends Dispatcher {
      * @return The number of aliases
      */
     int size();
+
+    /**
+     * Gets the primary alias for the supplied {@link CommandLowLevel}, if it
+     * has been registered.
+     *
+     * @param command The {@link CommandLowLevel}
+     * @return The primary alias, if it exists.
+     */
+    Optional<String> getPrimaryAlias(CommandLowLevel command);
 
     /**
      * Execute the command based on input arguments.

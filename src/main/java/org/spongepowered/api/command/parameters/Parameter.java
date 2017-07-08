@@ -234,6 +234,21 @@ public interface Parameter {
         Builder addModifiers(ValueParameterModifier... modifiers);
 
         /**
+         * Adds {@link ValueParameterModifier}s that modify the behavior of the
+         * parameter, for example, by requiring that only one output is
+         * obtained.
+         *
+         * <p>Note that the modifiers wrap around the call to the value parser,
+         * the first will be called which will be expected to call into
+         * later modifiers. They will be called in this order.</p>
+         *
+         * @param modifiers The modifiers, in the order that they should
+         *                  be executed
+         * @return This builder, for chaining
+         */
+        Builder addModifiers(List<ValueParameterModifier> modifiers);
+
+        /**
          * Adds a {@link ValueParameterModifier} to the beginning of the current
          * set of modifiers - that is, the supplied modifier will be called
          * first.
