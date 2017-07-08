@@ -35,6 +35,7 @@ import org.spongepowered.api.command.parameters.specification.ValueParameterModi
 import org.spongepowered.api.command.parameters.specification.ValueParameterModifiers;
 import org.spongepowered.api.command.parameters.specification.ValueParameters;
 import org.spongepowered.api.command.parameters.specification.ValueParser;
+import org.spongepowered.api.command.parameters.specification.ValueUsage;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
@@ -70,6 +71,18 @@ public interface Parameter {
      * @return The {@link Parameter}
      */
     static Parameter firstOf(Parameter... parameters) {
+        return Sponge.getRegistry().createBuilder(SequenceBuilder.class).requireAll(false).add(parameters).build();
+    }
+
+    /**
+     * Returns a {@link Parameter} that attempts to parse an argument using the
+     * supplied parameters in order. Once a parameter has parsed the argument
+     * successfully, no more parameters supplied here will be attempted.
+     *
+     * @param parameters The {@link Parameter}s
+     * @return The {@link Parameter}
+     */
+    static Parameter firstOf(Iterable<Parameter> parameters) {
         return Sponge.getRegistry().createBuilder(SequenceBuilder.class).requireAll(false).add(parameters).build();
     }
 
@@ -170,7 +183,7 @@ public interface Parameter {
          * parameters. If this is a {@link ValueParameter}, the object's
          * complete and usage methods will be used for completion and usage
          * unless this builder's {@link #onComplete(ValueCompleter)} and
-         * {@link #usage(BiFunction)} methods are specified.
+         * {@link #usage(ValueUsage)} methods are specified.
          *
          * @param parser The {@link ValueParameter} to use
          * @return This builder, for chaining
@@ -203,7 +216,7 @@ public interface Parameter {
          * @param usage The function
          * @return This builder, for chaining
          */
-        Builder usage(@Nullable BiFunction<Text, CommandSource, Text> usage);
+        Builder usage(@Nullable ValueUsage usage);
 
         /**
          * Adds {@link ValueParameterModifier}s that modify the behavior of the
@@ -220,6 +233,14 @@ public interface Parameter {
          */
         Builder addModifiers(ValueParameterModifier... modifiers);
 
+        /**
+         * Adds a {@link ValueParameterModifier} to the beginning of the current
+         * set of modifiers - that is, the supplied modifier will be called
+         * first.
+         *
+         * @param modifier The modifier to add to the beginning of the queue
+         * @return This builder, for chaining
+         */
         Builder addModifierToBeginning(ValueParameterModifier modifier);
 
         /**

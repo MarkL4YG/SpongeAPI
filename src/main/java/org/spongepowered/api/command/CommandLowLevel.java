@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.command;
 
-import org.spongepowered.api.command.specification.CommandSpecification;
+import org.spongepowered.api.command.specification.CommandSpec;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -37,12 +37,12 @@ import javax.annotation.Nullable;
 /**
  * A low-level interface for commands that can be executed. For almost all use
  * cases, higher-level tools should be used instead, like
- * {@link CommandSpecification}.
+ * {@link CommandSpec}.
  *
  * <p>Implementations are not required to implement a sane
  * {@link Object#equals(Object)} but really should.</p>
  */
-public interface Command {
+public interface CommandLowLevel {
 
     /**
      * Execute the command based on input arguments.
@@ -55,7 +55,7 @@ public interface Command {
      * @return The result of a command being processed
      * @throws CommandException Thrown on a command error
      */
-    Result process(CommandSource source, String arguments) throws CommandException;
+    CommandExecutionResult process(CommandSource source, String arguments) throws CommandException;
 
     /**
      * Gets a list of suggestions based on input.

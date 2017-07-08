@@ -25,8 +25,7 @@
 package org.spongepowered.api.command.specification;
 
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.Command;
-import org.spongepowered.api.command.CommandCallable;
+import org.spongepowered.api.command.CommandLowLevel;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.Parameter;
 import org.spongepowered.api.command.parameters.flags.Flags;
@@ -39,13 +38,13 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A high level interface for {@link Command}s that handles argument
+ * A high level interface for {@link CommandLowLevel}s that handles argument
  * parsing and subcommand handling.
  */
-public interface CommandSpecification extends Command {
+public interface CommandSpec extends CommandLowLevel {
 
     /**
-     * Gets a builder for building a {@link CommandSpecification}
+     * Gets a builder for building a {@link CommandSpec}
      *
      * @return The {@link Builder}
      */
@@ -65,38 +64,41 @@ public interface CommandSpecification extends Command {
 
     /**
      * A high level {@link Builder} for creating a command.
+     *
+     * <p>When creating a command, ensure that a {@link CommandExecutor}
+     * <strong>and/or</strong> a child command is specified.</p>
      */
-    interface Builder extends ResettableBuilder<CommandSpecification, Builder> {
+    interface Builder extends ResettableBuilder<CommandSpec, Builder> {
 
         /**
-         * Adds a {@link Command} as a child to this command, under the
+         * Adds a {@link CommandLowLevel} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link Command} that is a child.
+         * @param child The {@link CommandLowLevel} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(Command child, String... keys);
+        Builder addChild(CommandLowLevel child, String... keys);
 
         /**
-         * Adds a {@link Command} as a child to this command, under the
+         * Adds a {@link CommandLowLevel} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link Command} that is a child.
+         * @param child The {@link CommandLowLevel} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(Command child, Iterable<String> keys);
+        Builder addChild(CommandLowLevel child, Iterable<String> keys);
 
         /**
-         * Adds multiple {@link Command} as children to this command,
+         * Adds multiple {@link CommandLowLevel} as children to this command,
          * under the supplied keys. The keys are case insensitive.
          *
          * @param children The {@link Map} that contains a mapping of keys to
-         *                 their respective {@link Command} children.
+         *                 their respective {@link CommandLowLevel} children.
          * @return This builder, for chaining
          */
-        Builder addChildren(Map<? extends Iterable<String>, Command> children);
+        Builder addChildren(Map<? extends Iterable<String>, CommandLowLevel> children);
 
         /**
          * If this is set to true, then if the parent command (this) requires
@@ -116,9 +118,12 @@ public interface CommandSpecification extends Command {
         /**
          * Determines what to do if a child command throws an exception.
          *
-         * <p>Defaults to {@link ChildExceptionBehaviors#RETHROW}, which means
-         * that if a child command fails to execute, this command will not
-         * attempt to run in its place.</p>
+         * <p>Defaults to {@link ChildExceptionBehaviors#SUPPRESS}, which means
+         * that if a child command fails to execute, the error will be ignored
+         * and this base command will attempt to execute.</p>
+         *
+         * <p>See {@link ChildExceptionBehaviors} for other possible behaviors.
+         * </p>
          *
          * @param exceptionBehavior The {@link ChildExceptionBehavior} to adhere
          *                          to.
@@ -213,7 +218,7 @@ public interface CommandSpecification extends Command {
          *
          * @return The command, ready for registration
          */
-        CommandSpecification build();
+        CommandSpec build();
 
     }
 

@@ -27,7 +27,7 @@ package org.spongepowered.api.command.specification;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 /**
- * The possible behaviors of a {@link CommandSpecification} when a child command
+ * The possible behaviors of a {@link CommandSpec} when a child command
  * throws an exception.
  */
 public final class ChildExceptionBehaviors {

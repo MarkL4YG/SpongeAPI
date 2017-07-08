@@ -32,7 +32,7 @@ import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.flags.Flags;
-import org.spongepowered.api.command.specification.CommandSpecification;
+import org.spongepowered.api.command.specification.CommandSpec;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.StartsWithPredicate;
 
@@ -347,7 +347,7 @@ public final class CommandFlags extends CommandElement {
     }
 
     /**
-     * @deprecated Use the {@link Flags.Builder} with {@link CommandSpecification}
+     * @deprecated Use the {@link Flags.Builder} with {@link CommandSpec}
      */
     public static class Builder {
         private final Map<List<String>, CommandElement> usageFlags = new HashMap<>();

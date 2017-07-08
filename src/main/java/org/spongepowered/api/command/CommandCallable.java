@@ -24,16 +24,6 @@
  */
 package org.spongepowered.api.command;
 
-import org.spongepowered.api.command.spec.CommandSpec;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.World;
-
-import java.util.List;
-import java.util.Optional;
-
-import javax.annotation.Nullable;
-
 /**
  * A low-level interface for commands that can be executed. For almost all use
  * cases, higher-level tools should be used instead.
@@ -41,11 +31,11 @@ import javax.annotation.Nullable;
  * <p>Implementations are not required to implement a sane
  * {@link Object#equals(Object)} but really should.</p>
  *
- * @deprecated Use {@link Command} instead.
+ * @deprecated Use {@link CommandLowLevel} instead.
  */
 @Deprecated
 @SuppressWarnings("deprecation")
-public interface CommandCallable extends Command {
+public interface CommandCallable extends CommandLowLevel {
 
     /**
      * Execute the command based on input arguments.

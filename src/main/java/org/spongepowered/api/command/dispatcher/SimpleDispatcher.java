@@ -35,16 +35,15 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
-import org.spongepowered.api.command.Command;
+import org.spongepowered.api.command.CommandExecutionResult;
+import org.spongepowered.api.command.CommandLowLevel;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandMapping;
 import org.spongepowered.api.command.CommandMessageFormatting;
 import org.spongepowered.api.command.CommandNotFoundException;
-import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.ImmutableCommandMapping;
-import org.spongepowered.api.command.Result;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColors;
@@ -326,14 +325,14 @@ public final class SimpleDispatcher implements Dispatcher {
     }
 
     @Override
-    public Result process(CommandSource source, String commandLine) throws CommandException {
+    public CommandExecutionResult process(CommandSource source, String commandLine) throws CommandException {
         final String[] argSplit = commandLine.split(" ", 2);
         Optional<CommandMapping> cmdOptional = get(argSplit[0], source);
         if (!cmdOptional.isPresent()) {
             throw new CommandNotFoundException(t("commands.generic.notFound"), argSplit[0]); // TODO: Fix properly to use a SpongeTranslation??
         }
         final String arguments = argSplit.length > 1 ? argSplit[1] : "";
-        final Command spec = cmdOptional.get().getCallable();
+        final CommandLowLevel spec = cmdOptional.get().getCallable();
         try {
             return spec.process(source, arguments);
         } catch (CommandNotFoundException e) {

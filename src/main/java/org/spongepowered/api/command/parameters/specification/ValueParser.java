@@ -31,6 +31,9 @@ import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 
 import java.util.Optional;
 
+/**
+ * Defines how a parameter should be parsed.
+ */
 @FunctionalInterface
 public interface ValueParser {
 

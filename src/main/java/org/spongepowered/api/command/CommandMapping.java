@@ -60,6 +60,6 @@ public interface CommandMapping {
      *
      * @return The callable
      */
-    Command getCallable();
+    CommandLowLevel getCallable();
 
 }

@@ -44,7 +44,6 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.args.CommandElement;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.args.parsing.InputTokenizer;
-import org.spongepowered.api.command.specification.CommandSpecification;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -60,7 +59,7 @@ import javax.annotation.Nullable;
 /**
  * Specification for how command arguments should be parsed.
  *
- * @deprecated Use {@link CommandSpecification}
+ * @deprecated Use {@link org.spongepowered.api.command.specification.CommandSpec}
  */
 @Deprecated
 public final class CommandSpec implements CommandCallable {

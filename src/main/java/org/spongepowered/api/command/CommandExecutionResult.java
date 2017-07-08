@@ -34,10 +34,10 @@ import javax.annotation.Nullable;
 /**
  * Represents the result of a command in Sponge.
  */
-public interface Result {
+public interface CommandExecutionResult {
 
     /**
-     * Creates a builder that creates {@link Result}s.
+     * Creates a builder that creates {@link CommandExecutionResult}s.
      *
      * @return The {@link Builder}
      */
@@ -48,18 +48,18 @@ public interface Result {
     /**
      * Builds a result that indicates successes.
      *
-     * @return The {@link Result}
+     * @return The {@link CommandExecutionResult}
      */
-    static Result success() {
+    static CommandExecutionResult success() {
         return builder().successCount(1).build();
     }
 
     /**
      * Builds en empty result.
      *
-     * @return The {@link Result}
+     * @return The {@link CommandExecutionResult}
      */
-    static Result empty() {
+    static CommandExecutionResult empty() {
         return builder().build();
     }
 
@@ -70,7 +70,7 @@ public interface Result {
      * @param count The amount of blocks affected
      * @return The result
      */
-    static Result affectedBlocks(int count) {
+    static CommandExecutionResult affectedBlocks(int count) {
         return builder().affectedBlocks(count).build();
     }
 
@@ -81,7 +81,7 @@ public interface Result {
      * @param count The amount of entities affected
      * @return The result
      */
-    static Result affectedEntities(int count) {
+    static CommandExecutionResult affectedEntities(int count) {
         return builder().affectedEntities(count).build();
     }
 
@@ -92,7 +92,7 @@ public interface Result {
      * @param count The amount of items affected
      * @return The result
      */
-    static Result affectedItems(int count) {
+    static CommandExecutionResult affectedItems(int count) {
         return builder().affectedItems(count).build();
     }
 
@@ -103,7 +103,7 @@ public interface Result {
      * @param count The amount of queries
      * @return The result
      */
-    static Result queryResult(int count) {
+    static CommandExecutionResult queryResult(int count) {
         return builder().queryResult(count).build();
     }
 
@@ -147,9 +147,9 @@ public interface Result {
     OptionalInt queryResult();
 
     /**
-     * Builds {@link Result}s
+     * Builds {@link CommandExecutionResult}s
      */
-    interface Builder extends ResettableBuilder<Result, Builder> {
+    interface Builder extends ResettableBuilder<CommandExecutionResult, Builder> {
 
         /**
          * Sets if the command has been processed.
@@ -194,11 +194,11 @@ public interface Result {
         Builder queryResult(@Nullable Integer queryResult);
 
         /**
-         * Builds the {@link Result}.
+         * Builds the {@link CommandExecutionResult}.
          *
          * @return A CommandResult with the specified settings
          */
-        Result build();
+        CommandExecutionResult build();
 
     }
 

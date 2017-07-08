@@ -32,11 +32,11 @@ import javax.annotation.Nullable;
 /**
  * Represents the result of a command in Sponge.
  *
- * @deprecated Use {@link Result} instead
+ * @deprecated Use {@link CommandExecutionResult} instead
  */
 @Deprecated
 @SuppressWarnings("deprecation")
-public class CommandResult implements Result {
+public class CommandResult implements CommandExecutionResult {
     private static final CommandResult EMPTY = builder().build();
     private static final CommandResult SUCCESS = builder().successCount(1).build();
     private final OptionalInt successCount;
@@ -46,12 +46,12 @@ public class CommandResult implements Result {
     private final OptionalInt queryResult;
 
     /**
-     * Gets a {@link CommandResult} from a {@link Result}.
+     * Gets a {@link CommandResult} from a {@link CommandExecutionResult}.
      *
-     * @param result The {@link Result}
+     * @param result The {@link CommandExecutionResult}
      * @return The appropriate {@link CommandResult}
      */
-    public static CommandResult fromResult(Result result) {
+    public static CommandResult fromResult(CommandExecutionResult result) {
         if (result instanceof CommandResult) {
             return (CommandResult) result;
         }
