@@ -31,11 +31,11 @@ package org.spongepowered.api.command;
  * <p>Implementations are not required to implement a sane
  * {@link Object#equals(Object)} but really should.</p>
  *
- * @deprecated Use {@link CommandLowLevel} instead.
+ * @deprecated Use {@link CallableCommand} instead.
  */
 @Deprecated
 @SuppressWarnings("deprecation")
-public interface CommandCallable extends CommandLowLevel {
+public interface CommandCallable extends CallableCommand {
 
     /**
      * Execute the command based on input arguments.

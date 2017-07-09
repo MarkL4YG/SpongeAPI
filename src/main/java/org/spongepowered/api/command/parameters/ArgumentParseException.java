@@ -26,7 +26,6 @@ package org.spongepowered.api.command.parameters;
 
 import com.google.common.base.Strings;
 import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.args.ArgumentParseException;
 import org.spongepowered.api.text.Text;
 
 import javax.annotation.Nullable;
@@ -36,33 +35,33 @@ import java.util.Collection;
  * Exception thrown when a {@link Parameter} cannot parse an argument.
  */
 // TODO: Display multiple errors.
-public class ParameterParseException extends CommandException {
+public class ArgumentParseException extends CommandException {
     private static final long serialVersionUID = 820209656566192976L;
 
-    @Nullable private final Collection<ParameterParseException> innerExceptions;
+    @Nullable private final Collection<ArgumentParseException> innerExceptions;
 
     private final String source;
     private final int position;
 
     /**
-     * Return a new {@link ArgumentParseException} with the given message, source and position.
+     * Return a new {@link org.spongepowered.api.command.args.ArgumentParseException} with the given message, source and position.
      *
      * @param message The message to use for this exception
      * @param source The source string being parsed
      * @param position The current position in the source string
      */
-    public ParameterParseException(Text message, String source, int position) {
+    public ArgumentParseException(Text message, String source, int position) {
         this(message, source, position, null);
     }
 
     /**
-     * Return a new {@link ArgumentParseException} with the given message, source and position.
+     * Return a new {@link org.spongepowered.api.command.args.ArgumentParseException} with the given message, source and position.
      *
      * @param message The message to use for this exception
      * @param source The source string being parsed
      * @param position The current position in the source string
      */
-    public ParameterParseException(Text message, String source, int position, @Nullable Collection<ParameterParseException> inner) {
+    public ArgumentParseException(Text message, String source, int position, @Nullable Collection<ArgumentParseException> inner) {
         super(message, true);
         this.source = source;
         this.position = position;
@@ -70,26 +69,26 @@ public class ParameterParseException extends CommandException {
     }
 
     /**
-     * Return a new {@link ArgumentParseException} with the given message, cause, source and position.
+     * Return a new {@link org.spongepowered.api.command.args.ArgumentParseException} with the given message, cause, source and position.
      *
      * @param message The message to use for this exception
      * @param cause The cause for this exception
      * @param source The source string being parsed
      * @param position The current position in the source string
      */
-    public ParameterParseException(Text message, Throwable cause, String source, int position) {
+    public ArgumentParseException(Text message, Throwable cause, String source, int position) {
         this(message, cause, source, position, null);
     }
 
     /**
-     * Return a new {@link ArgumentParseException} with the given message, cause, source and position.
+     * Return a new {@link org.spongepowered.api.command.args.ArgumentParseException} with the given message, cause, source and position.
      *
      * @param message The message to use for this exception
      * @param cause The cause for this exception
      * @param source The source string being parsed
      * @param position The current position in the source string
      */
-    public ParameterParseException(Text message, Throwable cause, String source, int position, @Nullable Collection<ParameterParseException> inner) {
+    public ArgumentParseException(Text message, Throwable cause, String source, int position, @Nullable Collection<ArgumentParseException> inner) {
         super(message, cause, true);
         this.source = source;
         this.position = position;

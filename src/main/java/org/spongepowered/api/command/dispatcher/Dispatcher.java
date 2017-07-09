@@ -25,7 +25,7 @@
 package org.spongepowered.api.command.dispatcher;
 
 import com.google.common.collect.Multimap;
-import org.spongepowered.api.command.CommandLowLevel;
+import org.spongepowered.api.command.CallableCommand;
 import org.spongepowered.api.command.CommandMapping;
 import org.spongepowered.api.command.CommandSource;
 
@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 /**
  * Executes a command based on user input.
  */
-public interface Dispatcher extends CommandLowLevel {
+public interface Dispatcher extends CallableCommand {
 
     /**
      * Gets a list of commands. Each command, regardless of how many aliases it

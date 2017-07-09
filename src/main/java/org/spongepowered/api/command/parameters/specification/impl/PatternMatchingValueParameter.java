@@ -27,7 +27,7 @@ package org.spongepowered.api.command.parameters.specification.impl;
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.specification.ValueParameter;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 
@@ -47,7 +47,7 @@ import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
 public abstract class PatternMatchingValueParameter implements ValueParameter {
 
     @Override
-    public List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException {
+    public List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException {
         Iterable<String> choices = getChoices(source);
         final Optional<String> nextArg = args.nextIfPresent();
         if (nextArg.isPresent()) {
@@ -60,12 +60,12 @@ public abstract class PatternMatchingValueParameter implements ValueParameter {
 
     @Override
     public Optional<Object> getValue(CommandSource source, TokenizedArgs args, CommandExecutionContext context)
-            throws ParameterParseException {
+            throws ArgumentParseException {
         final String unformattedPattern = args.next();
         return Optional.of(getValue(source, args, unformattedPattern));
     }
 
-    public Collection<Object> getValue(CommandSource source, TokenizedArgs args, String unformattedPattern) throws ParameterParseException {
+    public Collection<Object> getValue(CommandSource source, TokenizedArgs args, String unformattedPattern) throws ArgumentParseException {
         Pattern pattern = getFormattedPattern(unformattedPattern);
         Iterable<String> filteredChoices =
                 StreamSupport.stream(getChoices(source).spliterator(), false).filter(element -> pattern.matcher(element).find())

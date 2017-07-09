@@ -26,7 +26,7 @@ package org.spongepowered.api.command.parameters.specification;
 
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 
 import java.util.List;
@@ -44,8 +44,8 @@ public interface ValueCompleter {
      * @param args The {@link TokenizedArgs} that contain the unparsed arguments
      * @param context The {@link CommandExecutionContext} that contains the parsed arguments
      * @return The {@link List} of completions to display to the client
-     * @throws ParameterParseException if a parameter could not be parsed
+     * @throws ArgumentParseException if a parameter could not be parsed
      */
-    List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException;
+    List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
 
 }

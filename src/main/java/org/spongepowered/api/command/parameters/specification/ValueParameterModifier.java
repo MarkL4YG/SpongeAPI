@@ -26,7 +26,7 @@ package org.spongepowered.api.command.parameters.specification;
 
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 import org.spongepowered.api.text.Text;
 
@@ -67,7 +67,7 @@ public interface ValueParameterModifier {
      * <p>Simply {@code return}ing from the method does not inherently raise an
      * error, and allows the command to continue executing.</p>
      *
-     * <p>Throwing a {@link ParameterParseException} indicates that command
+     * <p>Throwing a {@link ArgumentParseException} indicates that command
      * processing should not continue, though earlier modifiers can swallow
      * the exception, which is what
      * {@link ValueParameterModifiers#OPTIONAL_WEAK} does.</p>
@@ -80,11 +80,11 @@ public interface ValueParameterModifier {
      * @param parsingContext The current context of the parameter, which allows
      *                       this modifier to pass control to the next modifier
      *                       or the value parser
-     * @throws ParameterParseException thrown if there is an error parsing the
+     * @throws ArgumentParseException thrown if there is an error parsing the
      *                                 argument
      */
     void onParse(Text key, CommandSource source, TokenizedArgs args, CommandExecutionContext context, ParsingContext parsingContext)
-            throws ParameterParseException;
+            throws ArgumentParseException;
 
     /**
      * Modifies the tab complete list. Defaults to no modification.
@@ -99,11 +99,11 @@ public interface ValueParameterModifier {
      *                will be stored
      * @param currentCompletions The current tab completion list
      * @return The new tab completion list
-     * @throws ParameterParseException thrown if there is an error parsing the
+     * @throws ArgumentParseException thrown if there is an error parsing the
      *                                 argument
      */
     default List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context, List<String> currentCompletions)
-            throws ParameterParseException {
+            throws ArgumentParseException {
         return currentCompletions;
     }
 

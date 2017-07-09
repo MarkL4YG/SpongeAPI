@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.command.parameters.tokens;
 
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 public final class InputTokenizers {
@@ -67,7 +67,7 @@ public final class InputTokenizers {
      *
      * <ul>
      *     <li>Unclosed quotations are treated as an error condition, and a
-     *     {@link ParameterParseException} will be thrown if this occurs.</li>
+     *     {@link ArgumentParseException} will be thrown if this occurs.</li>
      *     <li>Implementations can request lenient parsing.</li>
      * </ul>
      *

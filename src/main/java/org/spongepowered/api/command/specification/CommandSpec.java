@@ -25,7 +25,7 @@
 package org.spongepowered.api.command.specification;
 
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandLowLevel;
+import org.spongepowered.api.command.CallableCommand;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.Parameter;
 import org.spongepowered.api.command.parameters.flags.Flags;
@@ -38,10 +38,10 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * A high level interface for {@link CommandLowLevel}s that handles argument
+ * A high level interface for {@link CallableCommand}s that handles argument
  * parsing and subcommand handling.
  */
-public interface CommandSpec extends CommandLowLevel {
+public interface CommandSpec extends CallableCommand {
 
     /**
      * Gets a builder for building a {@link CommandSpec}
@@ -71,34 +71,34 @@ public interface CommandSpec extends CommandLowLevel {
     interface Builder extends ResettableBuilder<CommandSpec, Builder> {
 
         /**
-         * Adds a {@link CommandLowLevel} as a child to this command, under the
+         * Adds a {@link CallableCommand} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link CommandLowLevel} that is a child.
+         * @param child The {@link CallableCommand} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(CommandLowLevel child, String... keys);
+        Builder addChild(CallableCommand child, String... keys);
 
         /**
-         * Adds a {@link CommandLowLevel} as a child to this command, under the
+         * Adds a {@link CallableCommand} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link CommandLowLevel} that is a child.
+         * @param child The {@link CallableCommand} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(CommandLowLevel child, Iterable<String> keys);
+        Builder addChild(CallableCommand child, Iterable<String> keys);
 
         /**
-         * Adds multiple {@link CommandLowLevel} as children to this command,
+         * Adds multiple {@link CallableCommand} as children to this command,
          * under the supplied keys. The keys are case insensitive.
          *
          * @param children The {@link Map} that contains a mapping of keys to
-         *                 their respective {@link CommandLowLevel} children.
+         *                 their respective {@link CallableCommand} children.
          * @return This builder, for chaining
          */
-        Builder addChildren(Map<? extends Iterable<String>, CommandLowLevel> children);
+        Builder addChildren(Map<? extends Iterable<String>, CallableCommand> children);
 
         /**
          * If this is set to true, then if the parent command (this) requires

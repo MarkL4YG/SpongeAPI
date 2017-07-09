@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.command.parameters.tokens;
 
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.text.Text;
 
 import java.util.List;
@@ -53,10 +53,10 @@ public interface TokenizedArgs {
      * return the same string.</p>
      *
      * @return The next argument
-     * @throws ParameterParseException thrown if there isn't another argument
+     * @throws ArgumentParseException thrown if there isn't another argument
      *     to parse.
      */
-    String next() throws ParameterParseException;
+    String next() throws ArgumentParseException;
 
     /**
      * Returns the next argument to parse if there is another argument to
@@ -74,10 +74,10 @@ public interface TokenizedArgs {
      * completions.</p>
      *
      * @return The next argument, if it exists
-     * @throws ParameterParseException thrown if there isn't another argument
+     * @throws ArgumentParseException thrown if there isn't another argument
      *     to parse.
      */
-    String peek() throws ParameterParseException;
+    String peek() throws ArgumentParseException;
 
     /**
      * Returns whether there is an argument prior to the current location of
@@ -100,10 +100,10 @@ public interface TokenizedArgs {
      * return the same string.</p>
      *
      * @return The previous argument, if there is one.
-     * @throws ParameterParseException thrown if there isn't another argument
+     * @throws ArgumentParseException thrown if there isn't another argument
      *     to parse.
      */
-    String previous() throws ParameterParseException;
+    String previous() throws ArgumentParseException;
 
     /**
      * Gets all the arguments.
@@ -148,22 +148,22 @@ public interface TokenizedArgs {
     void setState(Object state);
 
     /**
-     * Creates a {@link ParameterParseException} based on the current state of
+     * Creates a {@link ArgumentParseException} based on the current state of
      * this object.
      *
      * @param message The message to display
      * @return The exception
      */
-    ParameterParseException createError(Text message);
+    ArgumentParseException createError(Text message);
 
     /**
-     * Creates a {@link ParameterParseException} based on the current state of
+     * Creates a {@link ArgumentParseException} based on the current state of
      * this object.
      *
      * @param message The message to display
      * @param inner The {@link Throwable} that caused the error
      * @return The exception
      */
-    ParameterParseException createError(Text message, Throwable inner);
+    ArgumentParseException createError(Text message, Throwable inner);
 
 }

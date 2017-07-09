@@ -28,7 +28,7 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
 import org.spongepowered.api.command.parameters.Parameter;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
@@ -76,7 +76,7 @@ public interface Flags {
      * @param args The {@link TokenizedArgs}
      * @param context The {@link CommandExecutionContext}
      */
-    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException;
+    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
 
     /**
      * Gets the usage for the flag potion of the command.

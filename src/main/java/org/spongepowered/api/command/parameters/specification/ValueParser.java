@@ -26,7 +26,7 @@ package org.spongepowered.api.command.parameters.specification;
 
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 
 import java.util.Optional;
@@ -47,6 +47,6 @@ public interface ValueParser {
      * @param context The {@link CommandExecutionContext} containing the state about this command
      * @return Returns the value, usually from {@link TokenizedArgs#next()}
      */
-    Optional<Object> getValue(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException;
+    Optional<Object> getValue(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
 
 }

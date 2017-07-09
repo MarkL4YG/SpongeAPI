@@ -26,7 +26,7 @@ package org.spongepowered.api.command.parameters.specification.impl;
 
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.specification.ValueParameter;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 import org.spongepowered.api.entity.Entity;
@@ -51,7 +51,7 @@ public abstract class SelectorValueParameter extends PatternMatchingValueParamet
 
     @Override
     public Optional<Object> getValue(CommandSource source, TokenizedArgs args, CommandExecutionContext context)
-            throws ParameterParseException {
+            throws ArgumentParseException {
         String arg = args.peek();
         if (arg.startsWith("@")) { // Possibly a selector
             try {

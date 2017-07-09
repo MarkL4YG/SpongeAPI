@@ -32,6 +32,8 @@ public class CommandMessageFormatting {
     private CommandMessageFormatting() {
     }
 
+    public static final Text FORWARD_SLASH = Text.of("/");
+    public static final Text COMMA_SPACE = Text.of(", ");
     public static final Text LEFT_SQUARE = Text.of("[");
     public static final Text RIGHT_SQUARE = Text.of("]");
     public static final Text PIPE_TEXT = Text.of("|");

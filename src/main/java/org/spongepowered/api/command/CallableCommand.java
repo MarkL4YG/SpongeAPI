@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
  * <p>Implementations are not required to implement a sane
  * {@link Object#equals(Object)} but really should.</p>
  */
-public interface CommandLowLevel {
+public interface CallableCommand {
 
     /**
      * Execute the command based on input arguments.

@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.command.parameters.specification;
 
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 
 /**
  * Tracks the parsing of {@link ValueParameterModifier} and {@link ValueParameter}
@@ -36,9 +36,9 @@ public interface ParsingContext {
      * Parse the next {@link ValueParameterModifier} or {@link ValueParameter} in the
      * chain.
      *
-     * @throws ParameterParseException if thrown by any {@link ValueParameterModifier}
+     * @throws ArgumentParseException if thrown by any {@link ValueParameterModifier}
      * or {@link ValueParameter} in the chain.
      */
-    void next() throws ParameterParseException;
+    void next() throws ArgumentParseException;
 
 }

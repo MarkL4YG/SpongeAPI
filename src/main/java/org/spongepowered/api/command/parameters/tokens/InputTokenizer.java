@@ -26,7 +26,7 @@ package org.spongepowered.api.command.parameters.tokens;
 
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.command.parameters.Parameter;
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
 import java.util.List;
@@ -44,8 +44,8 @@ public interface InputTokenizer extends CatalogType {
      * @param arguments The provided arguments
      * @param lenient Whether to parse leniently
      * @return The tokenized strings. Empty list if error occurs
-     * @throws ParameterParseException if an invalid input is provided
+     * @throws ArgumentParseException if an invalid input is provided
      */
-    List<SingleArg> tokenize(String arguments, boolean lenient) throws ParameterParseException;
+    List<SingleArg> tokenize(String arguments, boolean lenient) throws ArgumentParseException;
 
 }

@@ -36,7 +36,7 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import org.spongepowered.api.command.CommandExecutionResult;
-import org.spongepowered.api.command.CommandLowLevel;
+import org.spongepowered.api.command.CallableCommand;
 import org.spongepowered.api.command.CommandCallable;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandMapping;
@@ -332,7 +332,7 @@ public final class SimpleDispatcher implements Dispatcher {
             throw new CommandNotFoundException(t("commands.generic.notFound"), argSplit[0]); // TODO: Fix properly to use a SpongeTranslation??
         }
         final String arguments = argSplit.length > 1 ? argSplit[1] : "";
-        final CommandLowLevel spec = cmdOptional.get().getCallable();
+        final CallableCommand spec = cmdOptional.get().getCallable();
         try {
             return spec.process(source, arguments);
         } catch (CommandNotFoundException e) {

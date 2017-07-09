@@ -26,13 +26,12 @@ package org.spongepowered.api.command.args;
 
 import com.google.common.base.Strings;
 import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.parameters.ParameterParseException;
 import org.spongepowered.api.text.Text;
 
 /**
  * Exception thrown when an error occurs while parsing arguments.
  *
- * @deprecated To be replaced with {@link ParameterParseException}.
+ * @deprecated To be replaced with {@link org.spongepowered.api.command.parameters.ArgumentParseException}.
  */
 @Deprecated
 public class ArgumentParseException extends CommandException {

@@ -40,7 +40,6 @@ import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -124,10 +123,10 @@ public interface Parameter {
      *             to be parsed
      * @param context The {@link CommandExecutionContext} that contains the
      *                current state of the execution.
-     * @throws ParameterParseException thrown if the parameter could not be
+     * @throws ArgumentParseException thrown if the parameter could not be
      *                                 parsed
      */
-    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException;
+    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
 
     /**
      * Returns potential completions of the current tokenized argument.
@@ -138,10 +137,10 @@ public interface Parameter {
      * @param context The {@link CommandExecutionContext} that contains the
      *                current state of the execution.
      * @return The potential completions.
-     * @throws ParameterParseException thrown if the parameter could not be
+     * @throws ArgumentParseException thrown if the parameter could not be
      *                                 parsed
      */
-    List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ParameterParseException;
+    List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
 
     /**
      * Gets the usage of this parameter.
@@ -182,7 +181,7 @@ public interface Parameter {
          * The {@link ValueParser} that will extract the value(s) from the
          * parameters. If this is a {@link ValueParameter}, the object's
          * complete and usage methods will be used for completion and usage
-         * unless this builder's {@link #onComplete(ValueCompleter)} and
+         * unless this builder's {@link #suggestions(ValueCompleter)} and
          * {@link #usage(ValueUsage)} methods are specified.
          *
          * @param parser The {@link ValueParameter} to use
@@ -201,7 +200,7 @@ public interface Parameter {
          * @param completer The {@link ValueCompleter}
          * @return This builder, for chaining
          */
-        Builder onComplete(@Nullable ValueCompleter completer);
+        Builder suggestions(@Nullable ValueCompleter completer);
 
         /**
          * Sets the usage. The {@link BiFunction} accepts the parameter key

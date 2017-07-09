@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.command.parameters.flags;
 
-import org.spongepowered.api.command.parameters.ParameterParseException;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 public final class UnknownFlagBehaviors {
@@ -44,7 +44,7 @@ public final class UnknownFlagBehaviors {
     public static UnknownFlagBehavior ACCEPT_VALUE = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "ACCEPT_VALUE");
 
     /**
-     * Throw an {@link ParameterParseException} when an unknown flag is
+     * Throw an {@link ArgumentParseException} when an unknown flag is
      * encountered.
      */
     public static UnknownFlagBehavior ERROR = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "ERROR");
