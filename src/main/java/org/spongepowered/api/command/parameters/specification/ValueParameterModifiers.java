@@ -24,10 +24,13 @@
  */
 package org.spongepowered.api.command.parameters.specification;
 
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
 import org.spongepowered.api.command.parameters.specification.factories.ValueParameterModifierFactory;
+import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
+import java.util.Collection;
 import java.util.function.Supplier;
 
 /**
@@ -51,7 +54,7 @@ public final class ValueParameterModifiers {
      * Indicates that there should only be one element returned by the
      * parameter.
      */
-    public final CatalogedValueParameterModifier onlyOne() {
+    public final ValueParameterModifier onlyOne() {
         return CatalogedValueParameterModifiers.ONLY_ONE;
     }
 
@@ -59,7 +62,7 @@ public final class ValueParameterModifiers {
      * Indicates that the parameter is optional, but will throw an exception
      * if an argument exists to be parsed.
      */
-    public final CatalogedValueParameterModifier optional() {
+    public final ValueParameterModifier optional() {
         return CatalogedValueParameterModifiers.OPTIONAL;
     }
 
@@ -68,7 +71,7 @@ public final class ValueParameterModifiers {
      * of the command arguments from being parsed if this cannot parse an
      * argument.
      */
-    public final CatalogedValueParameterModifier optionalWeak() {
+    public final ValueParameterModifier optionalWeak() {
         return CatalogedValueParameterModifiers.OPTIONAL_WEAK;
     }
 
@@ -108,6 +111,50 @@ public final class ValueParameterModifiers {
      */
     public static ValueParameterModifier defaultValueSupplier(Supplier<Object> defaultValueSupplier) {
         return factory.defaultValueSupplier(defaultValueSupplier);
+    }
+
+    /**
+     * Specifies that the parameter could be satisfied by entities returned from
+     * a selector instead.
+     *
+     * <p>If onlyOne is false, then developers <strong>must</strong> account for
+     * the fact that more than one entity can be returned. If this is true, then
+     * the parameter will throw an exception if more than one entity is returned
+     * </p>
+     *
+     * @param supportedEntityType The {@link Class} that represents the entities
+     *                          should be returned by the selector.
+     * @param onlyOne If only one object is required, this should be true.
+     * @param strict If true, if the selector returns <em>any</em> entity that
+     *               is not in the supported list, an
+     *               {@link ArgumentParseException} will be thrown, else they
+     *               will just be removed from the returned entities
+     * @return The {@link ValueParameterModifier}
+     */
+    public static ValueParameterModifier selector(Class<? extends Entity> supportedEntityType, boolean onlyOne, boolean strict) {
+        return factory.selector(onlyOne, strict, supportedEntityType);
+    }
+
+    /**
+     * Specifies that the parameter could be satisfied by entities returned from
+     * a selector instead.
+     *
+     * <p>If onlyOne is false, then developers <strong>must</strong> account for
+     * the fact that more than one entity can be returned. If this is true, then
+     * the parameter will throw an exception if more than one entity is returned
+     * </p>
+     *
+     * @param supportedEntityTypes The {@link Class} that represents the entities
+     *                          should be returned by the selector.
+     * @param onlyOne If only one object is required, this should be true.
+     * @param strict If true, if the selector returns <em>any</em> entity that
+     *               is not in the supported list, an
+     *               {@link ArgumentParseException} will be thrown, else they
+     *               will just be removed from the returned entities
+     * @return The {@link ValueParameterModifier}
+     */
+    public static ValueParameterModifier selector(Collection<Class<? extends Entity>> supportedEntityTypes, boolean onlyOne, boolean strict) {
+        return factory.selector(supportedEntityTypes, onlyOne, strict);
     }
 
 }

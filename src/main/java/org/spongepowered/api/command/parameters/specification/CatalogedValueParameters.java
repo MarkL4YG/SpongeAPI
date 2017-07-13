@@ -81,7 +81,7 @@ public final class CatalogedValueParameters {
      *     <li>notatall</li>
      * </ul>
      *
-     * <p>Returns a {@link boolean}</p>
+     * <p>Returns a {@link Boolean}.</p>
      */
     public final static CatalogedValueParameter BOOLEAN = DummyObjectProvider.createFor(CatalogedValueParameter.class, "BOOLEAN");
 
@@ -95,7 +95,7 @@ public final class CatalogedValueParameters {
     /**
      * Require an argument to be an double-precision floating point number.
      *
-     * <p>Returns a {@link double}</p>
+     * <p>Returns a {@link Double}.</p>
      */
     public final static CatalogedValueParameter DOUBLE = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DOUBLE");
 
@@ -113,7 +113,7 @@ public final class CatalogedValueParameters {
      *     where any zeroed unit can be omitted.</li>
      * </ul>
      *
-     * <p>Returns a {@link Duration}</p>
+     * <p>Returns a {@link Duration}.</p>
      */
     public final static CatalogedValueParameter DURATION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DURATION");
 
@@ -160,7 +160,7 @@ public final class CatalogedValueParameters {
     /**
      * Require an argument to be a long (base 10).
      *
-     * <p>Returns a {@link long}.</p>
+     * <p>Returns a {@link Long}.</p>
      */
     public final static CatalogedValueParameter LONG = DummyObjectProvider.createFor(CatalogedValueParameter.class, "LONG");
 

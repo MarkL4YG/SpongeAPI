@@ -145,7 +145,7 @@ public interface CommandSpec extends CallableCommand {
         Builder description(@Nullable Text description);
 
         /**
-         * Performs the logic of the command.
+         * Provides the logic of the command.
          *
          * <p>This is only optional if child commands are specified.</p>
          *

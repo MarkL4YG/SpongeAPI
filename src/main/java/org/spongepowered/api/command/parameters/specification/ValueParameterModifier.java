@@ -70,7 +70,7 @@ public interface ValueParameterModifier {
      * <p>Throwing a {@link ArgumentParseException} indicates that command
      * processing should not continue, though earlier modifiers can swallow
      * the exception, which is what
-     * {@link ValueParameterModifiers#OPTIONAL_WEAK} does.</p>
+     * {@link CatalogedValueParameterModifiers#OPTIONAL_WEAK} does.</p>
      *
      * @param key The parameter key where the parsed value will be stored
      * @param source The {@link CommandSource} executing the command

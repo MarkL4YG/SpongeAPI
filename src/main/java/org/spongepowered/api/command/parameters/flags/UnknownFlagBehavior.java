@@ -54,9 +54,10 @@ public interface UnknownFlagBehavior extends CatalogType {
      *                                   state
      * @param contextPreviousState The previous {@link CommandExecutionContext}
      *                             state
+     * @param flag
      * @throws ArgumentParseException thrown if there is an issue parsing the
      *                                 argument
      */
     void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context, Object tokenizedArgsPreviousState,
-               Object contextPreviousState) throws ArgumentParseException;
+            Object contextPreviousState, String flag) throws ArgumentParseException;
 }

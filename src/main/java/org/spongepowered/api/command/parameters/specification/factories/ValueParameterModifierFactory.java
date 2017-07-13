@@ -24,10 +24,14 @@
  */
 package org.spongepowered.api.command.parameters.specification.factories;
 
+import com.google.common.collect.Lists;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.CommandExecutionContext;
 import org.spongepowered.api.command.parameters.specification.ValueParameter;
 import org.spongepowered.api.command.parameters.specification.ValueParameterModifier;
+import org.spongepowered.api.entity.Entity;
 
+import java.util.Collection;
 import java.util.function.Supplier;
 
 /**
@@ -45,6 +49,38 @@ public interface ValueParameterModifierFactory {
      * @return The {@link ValueParameterModifier}
      */
     ValueParameterModifier repeated(int times);
+
+    /**
+     * Specifies that the parameter could be satisfied by entities returned from
+     * a selector instead.
+     *
+     * @param supportedEntity The {@link Class} that represents the entity
+     *                        that should be returned by the selector
+     * @param requireOne If only one object is required, this should be true
+     * @param strict If true, if the selector returns <em>any</em> entity that
+     *               is not of a type in the supported list, an
+     *               {@link ArgumentParseException} will be thrown, else they
+     *               will just be removed from the returned entities
+     * @return The {@link ValueParameterModifier}
+     */
+    default ValueParameterModifier selector(boolean requireOne, boolean strict, Class<? extends Entity> supportedEntity) {
+        return selector(Lists.newArrayList(supportedEntity), requireOne, strict);
+    }
+
+    /**
+     * Specifies that the parameter could be satisfied by entities returned from
+     * a selector instead.
+     *
+     * @param supportedEntities The {@link Class}es that represent the entities
+     *                          that should be returned by the selector
+     * @param requireOne If only one object is required, this should be true
+     * @param strict If true, if the selector returns <em>any</em> entity that
+     *               is not of a type in the supported list, an
+     *               {@link ArgumentParseException} will be thrown, else they
+     *               will just be removed from the returned entities
+     * @return The {@link ValueParameterModifier}
+     */
+    ValueParameterModifier selector(Collection<Class<? extends Entity>> supportedEntities, boolean requireOne, boolean strict);
 
     /**
      * If after a {@link ValueParameter}'s execution there is no value stored

@@ -37,6 +37,7 @@ import org.spongepowered.api.command.parameters.specification.ValueParameters;
 import org.spongepowered.api.command.parameters.specification.ValueParser;
 import org.spongepowered.api.command.parameters.specification.ValueUsage;
 import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
+import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
 
@@ -611,6 +612,33 @@ public interface Parameter {
          */
         default Builder defaultValueSupplier(Supplier<Object> defaultValueSupplier) {
             return addModifiers(ValueParameterModifiers.defaultValueSupplier(defaultValueSupplier));
+        }
+
+        /**
+         * Equivalent to {@link #addModifiers(ValueParameterModifier...)} with
+         * {@link ValueParameterModifiers#selector(Class, boolean, boolean)}.
+         *
+         * <p>This instructs the parameter to attempt to parse a selector if it
+         * is there, restricting the return to the entity type provided.</p>
+         *
+         * <p>In-built parameter types where it makes sense to support selectors
+         * (such as {@link ValueParameters#player()} do not need this modifier
+         * as they will already check selectors.
+         * </p>
+         *
+         * <p>If a selector is detected, the associated {@link ValueParameter}
+         * will not run.</p>
+         *
+         * @param entityType The type of {@link Entity} that can be returned by
+         *                   the selector
+         * @param onlyOne    Whether only one entity should be returned
+         * @param strict     If true, the parser will fail if an entity that is
+         *                   not of the provided type, else it will just remove
+         *                   any non-conforming entities
+         * @return This builder, for chaining
+         */
+        default Builder supportSelectors(Class<? extends Entity> entityType, boolean onlyOne, boolean strict) {
+           return addModifiers(ValueParameterModifiers.selector(entityType, onlyOne, strict));
         }
 
         /**

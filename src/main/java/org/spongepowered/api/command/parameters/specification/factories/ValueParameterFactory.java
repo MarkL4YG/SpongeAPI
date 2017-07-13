@@ -45,9 +45,9 @@ public interface ValueParameterFactory {
 
     /**
      * Returns a parameter that attempts to select a member of the specified
-     * {@link CatalogType} {@link T} by the provided ID. If there is no match,
-     * and no ID prefix was specified, the provided prefixes are prepended
-     * to the provided string and the registry is rescanned.
+     * {@link CatalogType} by the provided ID. If there is no match, and no ID
+     * prefix was specified, the provided prefixes are prepended to the
+     * provided string and the registry is rescanned.
      *
      * @param catalogType The {@link Class} type of the {@link CatalogType} that
      *                    should be returned.
@@ -94,7 +94,8 @@ public interface ValueParameterFactory {
     /**
      * Require the argument to be a key under the provided enum.
      *
-     * <p>Gives values of type {@link T}. The matcher is case insensitive.</p>
+     * <p>Gives values of provide enum type. The matcher is case insensitive.
+     * </p>
      *
      * @param enumClass The {@link Class} of the {@link Enum} to use
      * @param <T> The type

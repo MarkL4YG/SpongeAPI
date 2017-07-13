@@ -81,7 +81,7 @@ public final class ValueParameters {
      *     <li>notatall</li>
      * </ul>
      *
-     * <p>Returns a {@link boolean}</p>
+     * <p>Returns a {@link Boolean}</p>
      */
     public static ValueParameter bool() {
         return CatalogedValueParameters.BOOLEAN;
@@ -99,7 +99,7 @@ public final class ValueParameters {
     /**
      * Require an argument to be an double-precision floating point number.
      *
-     * <p>Returns a {@link double}</p>
+     * <p>Returns a {@link Double}</p>
      */
     public static ValueParameter doubleNumber() {
         return CatalogedValueParameters.DOUBLE;
@@ -175,7 +175,7 @@ public final class ValueParameters {
     /**
      * Require an argument to be a long (base 10).
      *
-     * <p>Returns a {@link long}.</p>
+     * <p>Returns a {@link Long}.</p>
      */
     public static ValueParameter longNum() {
         return CatalogedValueParameters.LONG;
@@ -313,9 +313,10 @@ public final class ValueParameters {
 
     /**
      * Returns a parameter that attempts to select a member of the specified
-     * {@link CatalogType} {@link T} by the provided ID. If there is no match,
-     * and no ID prefix was specified, the prefixes "minecraft:" and "sponge:"
-     * are assumed and the registry is rescanned.
+     * {@link CatalogType} by the provided ID. If there is no match, and no
+     * ID prefix was specified, the prefixes "minecraft:" and "sponge:"
+     * are assumed to be candidates (in that order) and the registry is
+     * rescanned.
      *
      * <p>To override this behaviour, use {@link #choices(boolean, String...)}
      * instead.</p>
@@ -331,8 +332,8 @@ public final class ValueParameters {
 
     /**
      * Returns a parameter that attempts to select a member of the specified
-     * {@link CatalogType} {@link T} by the provided ID. If there is no match,
-     * and no ID prefix was specified, the provided prefixes are prepended
+     * {@link CatalogType} by the provided ID. If there is no match, and no
+     * ID prefix was specified, the provided prefixes are prepended
      * to the provided string and the registry is rescanned.
      *
      * @param catalogType The {@link Class} type of the {@link CatalogType} that
@@ -455,7 +456,8 @@ public final class ValueParameters {
     /**
      * Require the argument to be a key under the provided enum.
      *
-     * <p>Gives values of type {@link T}. The matcher is case insensitive.</p>
+     * <p>Gives values of the provided enum type. The matcher is case
+     * insensitive.</p>
      *
      * @param enumClass The {@link Class} of the {@link Enum} to use
      * @param <T> The type
