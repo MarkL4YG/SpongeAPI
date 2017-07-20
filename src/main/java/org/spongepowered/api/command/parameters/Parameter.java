@@ -27,23 +27,25 @@ package org.spongepowered.api.command.parameters;
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.specification.CatalogedValueParameterModifiers;
-import org.spongepowered.api.command.parameters.specification.CatalogedValueParameters;
-import org.spongepowered.api.command.parameters.specification.ValueCompleter;
-import org.spongepowered.api.command.parameters.specification.ValueParameter;
-import org.spongepowered.api.command.parameters.specification.ValueParameterModifier;
-import org.spongepowered.api.command.parameters.specification.ValueParameterModifiers;
-import org.spongepowered.api.command.parameters.specification.ValueParameters;
-import org.spongepowered.api.command.parameters.specification.ValueParser;
-import org.spongepowered.api.command.parameters.specification.ValueUsage;
-import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
+import org.spongepowered.api.command.parameters.spec.CatalogedValueParameterModifiers;
+import org.spongepowered.api.command.parameters.spec.CatalogedValueParameters;
+import org.spongepowered.api.command.parameters.spec.ValueCompleter;
+import org.spongepowered.api.command.parameters.spec.ValueParameter;
+import org.spongepowered.api.command.parameters.spec.ValueParameterModifier;
+import org.spongepowered.api.command.parameters.spec.ValueParameterModifiers;
+import org.spongepowered.api.command.parameters.spec.ValueParameters;
+import org.spongepowered.api.command.parameters.spec.ValueParser;
+import org.spongepowered.api.command.parameters.spec.ValueUsage;
+import org.spongepowered.api.command.parameters.tokens.CommandArgs;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
@@ -117,31 +119,31 @@ public interface Parameter {
     Text getKey();
 
     /**
-     * Parses the next element(s) in the {@link CommandExecutionContext}
+     * Parses the next element(s) in the {@link CommandContext}
      *
      * @param source The {@link CommandSource} executing this command.
-     * @param args The {@link TokenizedArgs} containing the strings that need
+     * @param args The {@link CommandArgs} containing the strings that need
      *             to be parsed
-     * @param context The {@link CommandExecutionContext} that contains the
+     * @param context The {@link CommandContext} that contains the
      *                current state of the execution.
      * @throws ArgumentParseException thrown if the parameter could not be
      *                                 parsed
      */
-    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
+    void parse(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
 
     /**
      * Returns potential completions of the current tokenized argument.
      *
      * @param source The {@link CommandSource} executing this command.
-     * @param args The {@link TokenizedArgs} containing the strings that need
+     * @param args The {@link CommandArgs} containing the strings that need
      *             to be parsed
-     * @param context The {@link CommandExecutionContext} that contains the
+     * @param context The {@link CommandContext} that contains the
      *                current state of the execution.
      * @return The potential completions.
      * @throws ArgumentParseException thrown if the parameter could not be
      *                                 parsed
      */
-    List<String> complete(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
+    List<String> complete(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
 
     /**
      * Gets the usage of this parameter.
@@ -495,8 +497,21 @@ public interface Parameter {
          * @param choices The choices.
          * @return This builder, for chaining
          */
-        default Builder choices(Map<String, Object> choices) {
+        default Builder choices(Map<String, ?> choices) {
             return parser(ValueParameters.choices(choices));
+        }
+
+        /**
+         * Equivalent to {@link #parser(ValueParser)} with
+         * {@link ValueParameters#choices(String...)}
+         *
+         * @param choices The choices.
+         * @param valueFunction A function that transforms the choice into a
+         *                      returnable value
+         * @return This builder, for chaining
+         */
+        default Builder choices(Supplier<Collection<String>> choices, Function<String, ?> valueFunction) {
+            return parser(ValueParameters.choices(true, choices, valueFunction));
         }
 
         /**
@@ -594,7 +609,7 @@ public interface Parameter {
          *
          * @param defaultValue The default value if this parameter does not
          *                     enter a value into the
-         *                     {@link CommandExecutionContext}
+         *                     {@link CommandContext}
          * @return This builder, for chaining
          */
         default Builder defaultValue(Object defaultValue) {
@@ -607,7 +622,7 @@ public interface Parameter {
          *
          * @param defaultValueSupplier Supplies a default value if this
          *                             parameter does not enter a value into
-         *                             the {@link CommandExecutionContext}
+         *                             the {@link CommandContext}
          * @return This builder, for chaining
          */
         default Builder defaultValueSupplier(Supplier<Object> defaultValueSupplier) {

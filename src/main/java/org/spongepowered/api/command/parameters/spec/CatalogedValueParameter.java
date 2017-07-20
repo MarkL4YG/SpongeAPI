@@ -22,29 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.spec;
 
-import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.CommandContext;
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.util.annotation.CatalogedBy;
 
-/**
- * Interface containing the method directing how a certain command will
- * be executed.
- */
-@FunctionalInterface
-public interface CommandExecutor {
-
-    /**
-     * Callback for the execution of a command.
-     *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
-     */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+@CatalogedBy(CatalogedValueParameters.class)
+public interface CatalogedValueParameter extends ValueParameter, CatalogType {
 
 }

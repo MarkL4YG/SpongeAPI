@@ -24,27 +24,37 @@
  */
 package org.spongepowered.api.command.spec;
 
-import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.CommandContext;
+import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 /**
- * Interface containing the method directing how a certain command will
- * be executed.
+ * The possible behaviors of a {@link CommandSpec} when a child command
+ * throws an exception.
  */
-@FunctionalInterface
-public interface CommandExecutor {
+public final class ChildExceptionBehaviors {
+
+    private ChildExceptionBehaviors() {}
+
+    // SORTFIELDS:ON
 
     /**
-     * Callback for the execution of a command.
-     *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
+     * If a child command throws an exception, rethrows it, preventing all
+     * further command execution. This is the default.
      */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+    public static final ChildExceptionBehavior RETHROW = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "RETHROW");
+
+    /**
+     * If a child command throws an exception, stores it and continues with
+     * the parent command, displaying the error if the command execution ends
+     * due to an exception. Else, the exception will be swallowed.
+     */
+    public static final ChildExceptionBehavior STORE = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "STORE");
+
+    /**
+     * If a child command throws an exception, suppresses it and executes the
+     * parent command.
+     */
+    public static final ChildExceptionBehavior SUPPRESS = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "SUPPRESS");
+
+    // SORTFIELDS:OFF
 
 }

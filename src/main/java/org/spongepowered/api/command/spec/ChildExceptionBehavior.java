@@ -24,27 +24,25 @@
  */
 package org.spongepowered.api.command.spec;
 
+import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.CommandContext;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import java.util.Optional;
 
 /**
- * Interface containing the method directing how a certain command will
- * be executed.
+ * Defines the behavior when a child command throws a {@link CommandException}.
  */
-@FunctionalInterface
-public interface CommandExecutor {
+@CatalogedBy(ChildExceptionBehaviors.class)
+public interface ChildExceptionBehavior extends CatalogType {
 
     /**
-     * Callback for the execution of a command.
+     * Handles an exception from a child command.
      *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
+     * @param exception The exception to handle
+     * @return The {@link CommandException}, should it be stored
+     * @throws CommandException thrown if command execution should terminate
      */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+    Optional<CommandException> onChildCommandError(CommandException exception) throws CommandException;
 
 }

@@ -26,9 +26,9 @@ package org.spongepowered.api.command.parameters.flags;
 
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.CommandExecutionContext;
+import org.spongepowered.api.command.parameters.CommandContext;
 import org.spongepowered.api.command.parameters.ArgumentParseException;
-import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
+import org.spongepowered.api.command.parameters.tokens.CommandArgs;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
 /**
@@ -39,25 +39,25 @@ import org.spongepowered.api.util.annotation.CatalogedBy;
 public interface UnknownFlagBehavior extends CatalogType {
 
     /**
-     * Parses the unknown flag. the {@link TokenizedArgs} and
-     * {@link CommandExecutionContext} are in the post flag-parse position, but
+     * Parses the unknown flag. the {@link CommandArgs} and
+     * {@link CommandContext} are in the post flag-parse position, but
      * this can be reverted with the provided states.
      *
-     * <p>This method should leave/put the {@link TokenizedArgs} and
-     * {@link CommandExecutionContext} in the state ready to parse the next
+     * <p>This method should leave/put the {@link CommandArgs} and
+     * {@link CommandContext} in the state ready to parse the next
      * element.</p>
      *
      * @param source The {@link CommandSource} that executed the command
-     * @param args The {@link TokenizedArgs}
-     * @param context The {@link CommandExecutionContext}
-     * @param tokenizedArgsPreviousState The previous {@link TokenizedArgs}
+     * @param args The {@link CommandArgs}
+     * @param context The {@link CommandContext}
+     * @param tokenizedArgsPreviousState The previous {@link CommandArgs}
      *                                   state
-     * @param contextPreviousState The previous {@link CommandExecutionContext}
+     * @param contextPreviousState The previous {@link CommandContext}
      *                             state
      * @param flag
      * @throws ArgumentParseException thrown if there is an issue parsing the
      *                                 argument
      */
-    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context, Object tokenizedArgsPreviousState,
+    void parse(CommandSource source, CommandArgs args, CommandContext context, Object tokenizedArgsPreviousState,
             Object contextPreviousState, String flag) throws ArgumentParseException;
 }

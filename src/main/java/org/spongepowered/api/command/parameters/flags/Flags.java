@@ -26,10 +26,10 @@ package org.spongepowered.api.command.parameters.flags;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.CommandExecutionContext;
+import org.spongepowered.api.command.parameters.CommandContext;
 import org.spongepowered.api.command.parameters.Parameter;
 import org.spongepowered.api.command.parameters.ArgumentParseException;
-import org.spongepowered.api.command.parameters.tokens.TokenizedArgs;
+import org.spongepowered.api.command.parameters.tokens.CommandArgs;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
 
@@ -59,8 +59,8 @@ public interface Flags {
     /**
      * Attempts to parse the next element using these flags.
      *
-     * <p>If the next element is not a flag, the states of {@link TokenizedArgs}
-     * and {@link CommandExecutionContext} will not change. If the next element
+     * <p>If the next element is not a flag, the states of {@link CommandArgs}
+     * and {@link CommandContext} will not change. If the next element
      * is not a <em>recognized</em> flag, but could be a flag, it will be parsed
      * in accordance with the {@link UnknownFlagBehavior} supplied (or
      * {@link UnknownFlagBehaviors#ERROR} if not specified) for:</p>
@@ -73,10 +73,10 @@ public interface Flags {
      * </ul>
      *
      * @param source The {@link CommandSource} that is running this command
-     * @param args The {@link TokenizedArgs}
-     * @param context The {@link CommandExecutionContext}
+     * @param args The {@link CommandArgs}
+     * @param context The {@link CommandContext}
      */
-    void parse(CommandSource source, TokenizedArgs args, CommandExecutionContext context) throws ArgumentParseException;
+    void parse(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
 
     /**
      * Gets the usage for the flag potion of the command.
@@ -101,7 +101,7 @@ public interface Flags {
         /**
          * Allow a flag with any of the provided specifications and require
          * no value. This flag will be exposed in a
-         * {@link CommandExecutionContext} under the key equivalent to the
+         * {@link CommandContext} under the key equivalent to the
          * first flag in the specification array with the value {@code true}.
          *
          * <p>Each entry in the specification will be treated as its own flag.

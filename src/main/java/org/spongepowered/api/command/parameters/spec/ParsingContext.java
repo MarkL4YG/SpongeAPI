@@ -22,29 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.spec;
 
-import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.CommandContext;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
 
 /**
- * Interface containing the method directing how a certain command will
- * be executed.
+ * Tracks the parsing of {@link ValueParameterModifier} and {@link ValueParameter}
+ * chains.
  */
-@FunctionalInterface
-public interface CommandExecutor {
+public interface ParsingContext {
 
     /**
-     * Callback for the execution of a command.
+     * Parse the next {@link ValueParameterModifier} or {@link ValueParameter} in the
+     * chain.
      *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
+     * @throws ArgumentParseException if thrown by any {@link ValueParameterModifier}
+     * or {@link ValueParameter} in the chain.
      */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+    void next() throws ArgumentParseException;
 
 }
