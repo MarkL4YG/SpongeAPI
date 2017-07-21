@@ -22,4 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.parameters.managed;
+
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.CommandContext;
+import org.spongepowered.api.command.parameters.ArgumentParseException;
+import org.spongepowered.api.command.parameters.tokens.CommandArgs;
+
+import java.util.List;
+
+/**
+ * Defines the completions for a parameter.
+ */
+@FunctionalInterface
+public interface ValueCompleter {
+
+    /**
+     * Gets valid completions for a command.
+     *
+     * @param source The {@link CommandSource} completing the command
+     * @param args The {@link CommandArgs} that contain the unparsed arguments
+     * @param context The {@link CommandContext} that contains the parsed arguments
+     * @return The {@link List} of completions to display to the client
+     * @throws ArgumentParseException if a parameter could not be parsed
+     */
+    List<String> complete(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
+
+}

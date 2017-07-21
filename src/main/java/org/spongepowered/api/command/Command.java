@@ -22,29 +22,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command;
 
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandCallable;
-import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.Parameter;
 import org.spongepowered.api.command.parameters.flags.Flags;
 import org.spongepowered.api.command.parameters.tokens.InputTokenizer;
+import org.spongepowered.api.command.managed.ChildExceptionBehavior;
+import org.spongepowered.api.command.managed.ChildExceptionBehaviors;
+import org.spongepowered.api.command.managed.CommandExecutor;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
-import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 /**
- * A high level interface for {@link CommandCallable}s that handles argument
- * parsing and subcommand handling.
+ * The Command interface is the low-level interface that all commands in the
+ * Sponge ecosystem inherit.
+ *
+ * <p><strong>Most</strong> plugins are highly recommended (but not obligated)
+ * to use {@link Command#builder()} to create commands. The
+ * {@link Command.Builder} allows plugins to take advantage of a higher level
+ * of abstraction, such as argument parsers and simple child command handling,
+ * removing the need for boilerplate code.</p>
+ *
+ * <p>Plugins are free to implement this interface should they prefer to do so.
+ * Custom implementations of this class are not required to implement a sane
+ * {@link Object#equals(Object)}, but are highly encouraged to do so.</p>
  */
-public interface CommandSpec extends CommandCallable {
+public interface Command {
 
     /**
-     * Gets a builder for building a {@link CommandSpec}
+     * Gets a builder for building a {@link Command}
      *
      * @return The {@link Builder}
      */
@@ -53,52 +68,124 @@ public interface CommandSpec extends CommandCallable {
     }
 
     /**
-     * Return a longer description for this command. This description is
-     * composed of at least all present of the short description, the usage
-     * statement, and the extended description
+     * Execute the command based on input arguments.
      *
-     * @param source The source to get the extended description for
-     * @return the extended description
+     * <p>The implementing class must perform the necessary permission
+     * checks.</p>
+     *
+     * @param source The caller of the command
+     * @param arguments The raw arguments for this command
+     * @return The result of a command being processed
+     * @throws CommandException Thrown on a command error
      */
-    Optional<Text> getExtendedDescription(CommandSource source);
+    CommandResult process(CommandSource source, String arguments) throws CommandException;
 
     /**
-     * A high level {@link Builder} for creating a command.
+     * Gets a list of suggestions based on input.
+     *
+     * <p>If a suggestion is chosen by the user, it will replace the last
+     * word.</p>
+     *
+     * @param source The command source
+     * @param arguments The arguments entered up to this point
+     * @param targetPosition The position the source is looking at when
+     *     performing tab completion
+     * @return A list of suggestions
+     * @throws CommandException Thrown if there was a parsing error
+     */
+    List<String> getSuggestions(CommandSource source, String arguments, @Nullable Location<World> targetPosition) throws CommandException;
+
+    /**
+     * Test whether this command can probably be executed by the given source.
+     *
+     * <p>If implementations are unsure if the command can be executed by
+     * the source, {@code true} should be returned. Return values of this method
+     * may be used to determine whether this command is listed in command
+     * listings.</p>
+     *
+     * @param source The caller of the command
+     * @return Whether permission is (probably) granted
+     */
+    boolean testPermission(CommandSource source);
+
+    /**
+     * Gets a short one-line description of this command.
+     *
+     * <p>The help system may display the description in the command list.</p>
+     *
+     * @param source The source of the help request
+     * @return A description
+     */
+    Optional<Text> getShortDescription(CommandSource source);
+
+    /**
+     * Gets a longer formatted help message about this command.
+     *
+     * <p>It is recommended to use the default text color and style. Sections
+     * with text actions (e.g. hyperlinks) should be underlined.</p>
+     *
+     * <p>Multi-line messages can be created by separating the lines with
+     * {@code \n}.</p>
+     *
+     * <p>The help system may display this message when a source requests
+     * detailed information about a command.</p>
+     *
+     * @param source The source of the help request
+     * @return A help text
+     */
+    Optional<Text> getHelp(CommandSource source);
+
+    /**
+     * Gets the usage string of this command.
+     *
+     * <p>A usage string may look like
+     * {@code [-w &lt;world&gt;] &lt;var1&gt; &lt;var2&gt;}.</p>
+     *
+     * <p>The string must not contain the command alias.</p>
+     *
+     * @param source The source of the help request
+     * @return A usage string
+     */
+    Text getUsage(CommandSource source);
+
+
+    /**
+     * A high level {@link Builder} for creating a {@link Command}.
      *
      * <p>When creating a command, ensure that a {@link CommandExecutor}
      * <strong>and/or</strong> a child command is specified.</p>
      */
-    interface Builder extends ResettableBuilder<CommandSpec, Builder> {
+    interface Builder extends ResettableBuilder<Command, Builder> {
 
         /**
-         * Adds a {@link CommandCallable} as a child to this command, under the
+         * Adds a {@link Command} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link CommandCallable} that is a child.
+         * @param child The {@link Command} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(CommandCallable child, String... keys);
+        Builder addChild(Command child, String... keys);
 
         /**
-         * Adds a {@link CommandCallable} as a child to this command, under the
+         * Adds a {@link Command} as a child to this command, under the
          * supplied keys. The keys are case insensitive.
          *
-         * @param child The {@link CommandCallable} that is a child.
+         * @param child The {@link Command} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
          */
-        Builder addChild(CommandCallable child, Iterable<String> keys);
+        Builder addChild(Command child, Iterable<String> keys);
 
         /**
-         * Adds multiple {@link CommandCallable} as children to this command,
+         * Adds multiple {@link Command} as children to this command,
          * under the supplied keys. The keys are case insensitive.
          *
          * @param children The {@link Map} that contains a mapping of keys to
-         *                 their respective {@link CommandCallable} children.
+         *                 their respective {@link Command} children.
          * @return This builder, for chaining
          */
-        Builder addChildren(Map<? extends Iterable<String>, ? extends CommandCallable> children);
+        Builder addChildren(Map<? extends Iterable<String>, ? extends Command> children);
 
         /**
          * If this is set to true, then if the parent command (this) requires
@@ -218,7 +305,7 @@ public interface CommandSpec extends CommandCallable {
          *
          * @return The command, ready for registration
          */
-        CommandSpec build();
+        Command build();
 
     }
 

@@ -22,44 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.managed;
 
+import org.spongepowered.api.command.Command;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 /**
- * Class containing cataloged {@link ValueParameterModifier}s.
+ * The possible behaviors of a {@link Command} built using
+ * {@link Command.Builder} when a child command throws an exception.
  */
-public final class CatalogedValueParameterModifiers {
+public final class ChildExceptionBehaviors {
 
-    private CatalogedValueParameterModifiers() {}
+    private ChildExceptionBehaviors() {}
 
     // SORTFIELDS:ON
 
     /**
-     * Indicates that the parameter should continue to parse all remaining
-     * elements in the provided set of arguments.
+     * If a child command throws an exception, rethrows it, preventing all
+     * further command execution. This is the default.
      */
-    public static final CatalogedValueParameterModifier ALL_OF = DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "ALL_OF");
+    public static final ChildExceptionBehavior RETHROW = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "RETHROW");
 
     /**
-     * Indicates that there should only be one element returned by the
-     * parameter.
+     * If a child command throws an exception, stores it and continues with
+     * the parent command, displaying the error if the command execution ends
+     * due to an exception. Else, the exception will be swallowed.
      */
-    public static final CatalogedValueParameterModifier ONLY_ONE = DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "ONLY_ONE");
+    public static final ChildExceptionBehavior STORE = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "STORE");
 
     /**
-     * Indicates that the parameter is optional, but will throw an exception
-     * if an argument exists to be parsed.
+     * If a child command throws an exception, suppresses it and executes the
+     * parent command.
      */
-    public static final CatalogedValueParameterModifier OPTIONAL = DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OPTIONAL");
-
-    /**
-     * Indicates that the parameter is optional, and will not prevent the rest
-     * of the command arguments from being parsed if this cannot parse an
-     * argument.
-     */
-    public static final CatalogedValueParameterModifier
-            OPTIONAL_WEAK = DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OPTIONAL_WEAK");
+    public static final ChildExceptionBehavior SUPPRESS = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "SUPPRESS");
 
     // SORTFIELDS:OFF
 

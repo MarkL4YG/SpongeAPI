@@ -22,24 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.managed;
 
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.text.Text;
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import java.util.Optional;
 
 /**
- * Defines how a parameter should be parsed.
+ * Defines the behavior when a child command throws a {@link CommandException}.
  */
-@FunctionalInterface
-public interface ValueUsage {
+@CatalogedBy(ChildExceptionBehaviors.class)
+public interface ChildExceptionBehavior extends CatalogType {
 
     /**
-     * Gets the usage string for the argument.
+     * Handles an exception from a child command.
      *
-     * @param key The {@link Text} that defines the parameter key
-     * @param source The source requesting the usage
-     * @return The usage
+     * @param exception The exception to handle
+     * @return The {@link CommandException}, should it be stored
+     * @throws CommandException thrown if command execution should terminate
      */
-    Text getUsage(Text key, CommandSource source);
+    Optional<CommandException> onChildCommandError(CommandException exception) throws CommandException;
 
 }

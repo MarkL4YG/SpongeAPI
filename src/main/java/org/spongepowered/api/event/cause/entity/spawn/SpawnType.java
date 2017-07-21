@@ -30,7 +30,7 @@ import org.spongepowered.api.util.annotation.CatalogedBy;
 
 /**
  * Represents a type of "spawning" for a {@link SpawnEntityEvent}. Always
- * included with a {@link SpawnCause} for further specification.
+ * included with a {@link SpawnCause} for further managed.
  */
 @CatalogedBy(SpawnTypes.class)
 public interface SpawnType extends CatalogType {

@@ -22,48 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.parameters.managed;
 
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameters.Parameter;
 import org.spongepowered.api.text.Text;
 
-public interface ValueParameter extends ValueCompleter, ValueParser, ValueUsage {
+/**
+ * Defines how a parameter should be parsed.
+ */
+@FunctionalInterface
+public interface ValueUsage {
 
     /**
      * Gets the usage string for the argument.
-     *
-     * <p>Default implemented for {@link ValueParameters} to simply return the
-     * key.</p>
      *
      * @param key The {@link Text} that defines the parameter key
      * @param source The source requesting the usage
      * @return The usage
      */
-    default Text getUsage(Text key, CommandSource source) {
-        return key;
-    }
-
-    /**
-     * Gets this {@link ValueParameter} as a {@link Parameter}.
-     *
-     * @param key The key for the parameter.
-     * @param modifiers The {@link ValueParameterModifier}s to link with this parameter
-     * @return The {@link Parameter}
-     */
-    default Parameter asParameter(String key, ValueParameterModifier... modifiers) {
-        return Parameter.builder().key(key).parser(this).addModifiers(modifiers).build();
-    }
-
-    /**
-     * Gets this {@link ValueParameter} as a {@link Parameter}.
-     *
-     * @param key The key for the parameter.
-     * @param modifiers The {@link ValueParameterModifier}s to link with this parameter
-     * @return The {@link Parameter}
-     */
-    default Parameter asParameter(Text key, ValueParameterModifier... modifiers) {
-        return Parameter.builder().key(key).parser(this).addModifiers(modifiers).build();
-    }
+    Text getUsage(Text key, CommandSource source);
 
 }

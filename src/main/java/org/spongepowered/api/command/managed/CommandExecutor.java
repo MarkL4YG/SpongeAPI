@@ -22,31 +22,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.managed;
 
+import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameters.CommandContext;
-import org.spongepowered.api.command.parameters.ArgumentParseException;
-import org.spongepowered.api.command.parameters.tokens.CommandArgs;
-
-import java.util.Optional;
 
 /**
- * Defines how a parameter should be parsed.
+ * Interface containing the method directing how a certain command will
+ * be executed.
  */
 @FunctionalInterface
-public interface ValueParser {
+public interface CommandExecutor {
 
     /**
-     * Gets the value for the parameter.
+     * Callback for the execution of a command.
      *
-     * <p>This should have no side effects, and should not update the {@link CommandContext}</p>.
-     *
-     * @param source The {@link CommandSource} that has executed this command
-     * @param args The {@link CommandArgs} that contains the unparsed arguments
-     * @param context The {@link CommandContext} containing the state about this command
-     * @return Returns the value, usually from {@link CommandArgs#next()}
+     * @param source The {@link CommandSource} who is executing this command
+     * @param context The parsed command arguments for this command
+     * @return the result of executing this command
+     * @throws CommandException If a user-facing error occurs while
+     *     executing this command
      */
-    Optional<Object> getValue(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
+    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
 
 }

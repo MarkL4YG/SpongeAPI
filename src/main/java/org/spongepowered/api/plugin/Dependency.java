@@ -60,7 +60,7 @@ public @interface Dependency {
      * </table>
      *
      * @return The required version range, or an empty string if unspecified
-     * @see <a href="https://goo.gl/edrup4">Maven version range specification</a>
+     * @see <a href="https://goo.gl/edrup4">Maven version range managed</a>
      * @see <a href="https://goo.gl/WBsFIu">Maven version design document</a>
      */
     String version() default "";

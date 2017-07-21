@@ -22,13 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec.factories;
+package org.spongepowered.api.command.parameters.managed.factories;
 
 import com.google.common.collect.Lists;
 import org.spongepowered.api.command.parameters.ArgumentParseException;
 import org.spongepowered.api.command.parameters.CommandContext;
-import org.spongepowered.api.command.parameters.spec.ValueParameter;
-import org.spongepowered.api.command.parameters.spec.ValueParameterModifier;
+import org.spongepowered.api.command.parameters.managed.ValueParameter;
+import org.spongepowered.api.command.parameters.managed.ValueParameterModifier;
 import org.spongepowered.api.entity.Entity;
 
 import java.util.Collection;

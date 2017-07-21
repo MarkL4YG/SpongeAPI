@@ -61,7 +61,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(Object plugin, CommandCallable callable, String... alias);
+    Optional<CommandMapping> register(Object plugin, Command callable, String... alias);
 
     /**
      * Register a given command using the given list of aliases.
@@ -82,7 +82,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(Object plugin, CommandCallable callable, List<String> aliases);
+    Optional<CommandMapping> register(Object plugin, Command callable, List<String> aliases);
 
     /**
      * Register a given command using a given list of aliases.
@@ -109,7 +109,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(Object plugin, CommandCallable callable, List<String> aliases, Function<List<String>, List<String>> callback);
+    Optional<CommandMapping> register(Object plugin, Command callable, List<String> aliases, Function<List<String>, List<String>> callback);
 
     /**
      * Register a given command using the given list of aliases.
@@ -130,7 +130,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(PluginContainer pluginContainer, CommandCallable callable, String... alias);
+    Optional<CommandMapping> register(PluginContainer pluginContainer, Command callable, String... alias);
 
     /**
      * Register a given command using the given list of aliases.
@@ -151,7 +151,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(PluginContainer pluginContainer, CommandCallable callable, List<String> aliases);
+    Optional<CommandMapping> register(PluginContainer pluginContainer, Command callable, List<String> aliases);
 
     /**
      * Register a given command using a given list of aliases.
@@ -178,7 +178,7 @@ public interface CommandManager extends Dispatcher {
      * @throws IllegalArgumentException Thrown if {@code plugin} is not a
      *     plugin instance
      */
-    Optional<CommandMapping> register(PluginContainer pluginContainer, CommandCallable callable, List<String> aliases, Function<List<String>,
+    Optional<CommandMapping> register(PluginContainer pluginContainer, Command callable, List<String> aliases, Function<List<String>,
             List<String>> callback);
 
     /**
@@ -220,13 +220,13 @@ public interface CommandManager extends Dispatcher {
     int size();
 
     /**
-     * Gets the primary alias for the supplied {@link CommandCallable}, if it
+     * Gets the primary alias for the supplied {@link Command}, if it
      * has been registered.
      *
-     * @param command The {@link CommandCallable}
+     * @param command The {@link Command}
      * @return The primary alias, if it exists.
      */
-    Optional<String> getPrimaryAlias(CommandCallable command);
+    Optional<String> getPrimaryAlias(Command command);
 
     /**
      * Execute the command based on input arguments.

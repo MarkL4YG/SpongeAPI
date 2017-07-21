@@ -22,10 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec.factories;
+package org.spongepowered.api.command.parameters.managed.factories;
 
 import org.spongepowered.api.CatalogType;
-import org.spongepowered.api.command.parameters.spec.ValueParameter;
+import org.spongepowered.api.command.parameters.managed.ValueParameter;
 
 import javax.annotation.Nullable;
 

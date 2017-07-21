@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.parameters.managed;
 
 import com.flowpowered.math.vector.Vector3d;
 import org.spongepowered.api.command.CommandSource;

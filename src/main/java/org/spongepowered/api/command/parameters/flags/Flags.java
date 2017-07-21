@@ -102,9 +102,9 @@ public interface Flags {
          * Allow a flag with any of the provided specifications and require
          * no value. This flag will be exposed in a
          * {@link CommandContext} under the key equivalent to the
-         * first flag in the specification array with the value {@code true}.
+         * first flag in the managed array with the value {@code true}.
          *
-         * <p>Each entry in the specification will be treated as its own flag.
+         * <p>Each entry in the managed will be treated as its own flag.
          * There are two types of flags: short and long.</p>
          *
          * <ul>

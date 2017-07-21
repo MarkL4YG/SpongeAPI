@@ -22,4 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault package org.spongepowered.api.command.parameters.spec.impl;
+package org.spongepowered.api.command.parameters.managed;
+
+import org.spongepowered.api.command.parameters.ArgumentParseException;
+
+/**
+ * Tracks the parsing of {@link ValueParameterModifier} and {@link ValueParameter}
+ * chains.
+ */
+public interface ParsingContext {
+
+    /**
+     * Parse the next {@link ValueParameterModifier} or {@link ValueParameter} in the
+     * chain.
+     *
+     * @throws ArgumentParseException if thrown by any {@link ValueParameterModifier}
+     * or {@link ValueParameter} in the chain.
+     */
+    void next() throws ArgumentParseException;
+
+}

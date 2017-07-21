@@ -22,23 +22,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameters.spec;
+package org.spongepowered.api.command.parameters.managed;
 
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameters.CommandContext;
 import org.spongepowered.api.command.parameters.ArgumentParseException;
+import org.spongepowered.api.command.parameters.tokens.CommandArgs;
+
+import java.util.Optional;
 
 /**
- * Tracks the parsing of {@link ValueParameterModifier} and {@link ValueParameter}
- * chains.
+ * Defines how a parameter should be parsed.
  */
-public interface ParsingContext {
+@FunctionalInterface
+public interface ValueParser {
 
     /**
-     * Parse the next {@link ValueParameterModifier} or {@link ValueParameter} in the
-     * chain.
+     * Gets the value for the parameter.
      *
-     * @throws ArgumentParseException if thrown by any {@link ValueParameterModifier}
-     * or {@link ValueParameter} in the chain.
+     * <p>This should have no side effects, and should not update the {@link CommandContext}</p>.
+     *
+     * @param source The {@link CommandSource} that has executed this command
+     * @param args The {@link CommandArgs} that contains the unparsed arguments
+     * @param context The {@link CommandContext} containing the state about this command
+     * @return Returns the value, usually from {@link CommandArgs#next()}
      */
-    void next() throws ArgumentParseException;
+    Optional<Object> getValue(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
 
 }

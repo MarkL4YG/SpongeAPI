@@ -22,39 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.spec;
+package org.spongepowered.api.command.parameters.managed;
 
-import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.util.annotation.CatalogedBy;
 
-/**
- * The possible behaviors of a {@link CommandSpec} when a child command
- * throws an exception.
- */
-public final class ChildExceptionBehaviors {
-
-    private ChildExceptionBehaviors() {}
-
-    // SORTFIELDS:ON
-
-    /**
-     * If a child command throws an exception, rethrows it, preventing all
-     * further command execution. This is the default.
-     */
-    public static final ChildExceptionBehavior RETHROW = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "RETHROW");
-
-    /**
-     * If a child command throws an exception, stores it and continues with
-     * the parent command, displaying the error if the command execution ends
-     * due to an exception. Else, the exception will be swallowed.
-     */
-    public static final ChildExceptionBehavior STORE = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "STORE");
-
-    /**
-     * If a child command throws an exception, suppresses it and executes the
-     * parent command.
-     */
-    public static final ChildExceptionBehavior SUPPRESS = DummyObjectProvider.createFor(ChildExceptionBehavior.class, "SUPPRESS");
-
-    // SORTFIELDS:OFF
+@CatalogedBy(CatalogedValueParameters.class)
+public interface CatalogedValueParameter extends ValueParameter, CatalogType {
 
 }
