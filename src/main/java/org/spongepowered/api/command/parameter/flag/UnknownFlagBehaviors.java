@@ -22,44 +22,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command;
+package org.spongepowered.api.command.parameter.flag;
 
-import java.util.Set;
+import org.spongepowered.api.command.parameter.ArgumentParseException;
+import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
-/**
- * Provides information about a mapping between a command and its aliases.
- *
- * <p>Implementations are not required to implement a sane
- * {@link Object#equals(Object)} but may choose to do so.</p>
- */
-public interface CommandMapping {
+public final class UnknownFlagBehaviors {
 
-    /**
-     * Gets the primary alias.
-     *
-     * @return The primary alias
-     */
-    String getPrimaryAlias();
+    private UnknownFlagBehaviors() {}
+
+    // SORTFIELDS:ON
 
     /**
-     * Gets an immutable list of all aliases.
-     *
-     * <p>The returned list must contain at least one entry, of which one must
-     * be the one returned by {@link #getPrimaryAlias()}.</p>
-     *
-     * <p>There may be several versions of the same alias with different
-     * casing, although generally implementations should ignore the casing
-     * of aliases.</p>
-     *
-     * @return A set of aliases
+     * Mark the flag as a non-value flag.
      */
-    Set<String> getAllAliases();
+    public static UnknownFlagBehavior ACCEPT_NONVALUE = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "ACCEPT_NONVALUE");
 
     /**
-     * Gets the {@link Command} associated with this mapping.
-     *
-     * @return The {@link Command}
+     * Mark the flag as a string-valued flag.
      */
-    Command getCommand();
+    public static UnknownFlagBehavior ACCEPT_VALUE = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "ACCEPT_VALUE");
+
+    /**
+     * Throw an {@link ArgumentParseException} when an unknown flag is
+     * encountered.
+     */
+    public static UnknownFlagBehavior ERROR = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "ERROR");
+
+    /**
+     * Act as if the unknown flag is an ordinary argument.
+     */
+    public static UnknownFlagBehavior IGNORE = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "IGNORE");
+
+    /**
+     * Skip this argument entirely.
+     */
+    public static UnknownFlagBehavior SKIP = DummyObjectProvider.createFor(UnknownFlagBehavior.class, "SKIP");
+
+    // SORTFIELDS:OFF
 
 }

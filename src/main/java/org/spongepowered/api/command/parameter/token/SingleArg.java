@@ -22,29 +22,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.managed;
-
-import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameter.CommandContext;
+package org.spongepowered.api.command.parameter.token;
 
 /**
- * Interface containing the method directing how a certain command will
- * be executed.
+ * This represents a single argument with its start and end indexes
+ * in the associated raw input string.
  */
-@FunctionalInterface
-public interface CommandExecutor {
+public interface SingleArg {
 
     /**
-     * Callback for the execution of a command.
+     * Gets the argument value.
      *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
+     * @return The argument
      */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+    String getArg();
+
+    /**
+     * Gets the index in the unparsed string that this argument starts at.
+     *
+     * @return The index.
+     */
+    int getStartIndex();
+
+    /**
+     * Gets the index in the unparsed string that this argument ends at.
+     *
+     * @return The index
+     */
+    int getEndIndex();
 
 }

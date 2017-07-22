@@ -22,29 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.managed;
+package org.spongepowered.api.command.parameter.managed;
 
-import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.parameter.CommandContext;
+import org.spongepowered.api.command.parameter.ArgumentParseException;
+import org.spongepowered.api.command.parameter.token.CommandArgs;
+
+import java.util.List;
 
 /**
- * Interface containing the method directing how a certain command will
- * be executed.
+ * Defines the completions for a parameter.
  */
 @FunctionalInterface
-public interface CommandExecutor {
+public interface ValueCompleter {
 
     /**
-     * Callback for the execution of a command.
+     * Gets valid completions for a command.
      *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
+     * @param source The {@link CommandSource} completing the command
+     * @param args The {@link CommandArgs} that contain the unparsed arguments
+     * @param context The {@link CommandContext} that contains the parsed arguments
+     * @return The {@link List} of completions to display to the client
+     * @throws ArgumentParseException if a parameter could not be parsed
      */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+    List<String> complete(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
 
 }

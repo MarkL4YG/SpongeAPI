@@ -25,9 +25,9 @@
 package org.spongepowered.api.command;
 
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.parameters.Parameter;
-import org.spongepowered.api.command.parameters.flags.Flags;
-import org.spongepowered.api.command.parameters.tokens.InputTokenizer;
+import org.spongepowered.api.command.parameter.Parameter;
+import org.spongepowered.api.command.parameter.flag.Flags;
+import org.spongepowered.api.command.parameter.token.InputTokenizer;
 import org.spongepowered.api.command.managed.ChildExceptionBehavior;
 import org.spongepowered.api.command.managed.ChildExceptionBehaviors;
 import org.spongepowered.api.command.managed.CommandExecutor;

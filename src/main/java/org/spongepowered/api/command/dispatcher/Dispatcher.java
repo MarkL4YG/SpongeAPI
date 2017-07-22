@@ -26,7 +26,9 @@ package org.spongepowered.api.command.dispatcher;
 
 import com.google.common.collect.Multimap;
 import org.spongepowered.api.command.Command;
+import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandMapping;
+import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 
 import java.util.Optional;

@@ -22,29 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.managed;
+package org.spongepowered.api.command.parameter.token;
 
-import org.spongepowered.api.command.CommandException;
-import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameter.CommandContext;
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.command.parameter.Parameter;
+import org.spongepowered.api.command.parameter.ArgumentParseException;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import java.util.List;
 
 /**
- * Interface containing the method directing how a certain command will
- * be executed.
+ * Provides a function to transform raw strings into tokens, which can be
+ * consumed by {@link Parameter}s.
  */
-@FunctionalInterface
-public interface CommandExecutor {
+@CatalogedBy(InputTokenizers.class)
+public interface InputTokenizer extends CatalogType {
 
     /**
-     * Callback for the execution of a command.
+     * Take the input string and split it as appropriate into argument tokens.
      *
-     * @param source The {@link CommandSource} who is executing this command
-     * @param context The parsed command arguments for this command
-     * @return the result of executing this command
-     * @throws CommandException If a user-facing error occurs while
-     *     executing this command
+     * @param arguments The provided arguments
+     * @param lenient Whether to parse leniently
+     * @return The tokenized strings. Empty list if error occurs
+     * @throws ArgumentParseException if an invalid input is provided
      */
-    CommandResult execute(CommandSource source, CommandContext context) throws CommandException;
+    List<SingleArg> tokenize(String arguments, boolean lenient) throws ArgumentParseException;
 
 }
