@@ -93,6 +93,10 @@ public final class ValueParameterModifiers {
      * in the associated key, this modifier will put the supplied default into
      * the context.
      *
+     * <p>This should not be used with
+     * {@link CatalogedValueParameterModifiers#OPTIONAL} or
+     * {@link CatalogedValueParameterModifiers#OPTIONAL_WEAK}</p>
+     *
      * @param defaultValue The default value.
      * @return The {@link ValueParameterModifier}
      */
@@ -105,6 +109,10 @@ public final class ValueParameterModifiers {
      * in the associated key, this modifier will put the default obtained from
      * the supplied {@link Supplier} into the context, if the default is
      * non-null.
+     *
+     * <p>This should not be used with
+     * {@link CatalogedValueParameterModifiers#OPTIONAL} or
+     * {@link CatalogedValueParameterModifiers#OPTIONAL_WEAK}</p>
      *
      * @param defaultValueSupplier The default value {@link Supplier}.
      * @return The {@link ValueParameterModifier}

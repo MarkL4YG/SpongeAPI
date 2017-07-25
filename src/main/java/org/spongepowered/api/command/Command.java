@@ -36,6 +36,7 @@ import org.spongepowered.api.util.ResettableBuilder;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -164,8 +165,12 @@ public interface Command {
          * @param child The {@link Command} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
+         * @throws IllegalArgumentException thrown if a child key is already
+         *                                  in the builder
          */
-        Builder addChild(Command child, String... keys);
+        default Builder child(Command child, String... keys) {
+            return child(child, Arrays.asList(keys));
+        }
 
         /**
          * Adds a {@link Command} as a child to this command, under the
@@ -174,8 +179,10 @@ public interface Command {
          * @param child The {@link Command} that is a child.
          * @param keys The keys to register as a sub command.
          * @return This builder, for chaining
+         * @throws IllegalArgumentException thrown if a child key is already
+         *                                  in the builder
          */
-        Builder addChild(Command child, Iterable<String> keys);
+        Builder child(Command child, Iterable<String> keys);
 
         /**
          * Adds multiple {@link Command} as children to this command,
@@ -184,23 +191,52 @@ public interface Command {
          * @param children The {@link Map} that contains a mapping of keys to
          *                 their respective {@link Command} children.
          * @return This builder, for chaining
+         * @throws IllegalArgumentException thrown if a child key is already
+         *                                  in the builder
          */
-        Builder addChildren(Map<? extends Iterable<String>, ? extends Command> children);
+        default Builder children(Map<? extends Iterable<String>, ? extends Command> children) {
+            for (Map.Entry<? extends Iterable<String>, ? extends Command> child : children.entrySet()) {
+                child(child.getValue(), child.getKey());
+            }
+
+            return this;
+        }
 
         /**
-         * If this is set to true, then if the parent command (this) requires
-         * a {@link CommandSource} to have a permission
-         * (see {@link #permission(String)}), this permission is
-         * required for all children too. If this is set to false, then
-         * child commands <em>do not</em> require this permission.
+         * Adds a parameter for use when parsing arguments. When executing a
+         * command, they will be executed in the order they are added to this
+         * builder.
          *
-         * <p>This defaults to {@code true}.</p>
-         *
-         * @param required Whether this command's permission is required for
-         *                 child commands.
+         * @param parameter The parameter to add to the parameter list
          * @return This builder, for chaining
          */
-        Builder requirePermissionForChildren(boolean required);
+        Builder parameter(Parameter parameter);
+
+        /**
+         * Adds parameters to use when parsing arguments. Parameters will be
+         * used in the order provided here.
+         *
+         * @param parameters The {@link Parameter}s to use
+         * @return This builder, for chaining
+         */
+        default Builder parameters(Parameter... parameters) {
+            return parameters(Arrays.asList(parameters));
+        }
+
+        /**
+         * Adds parameters to use when parsing arguments. Parameters will be
+         * used in the order provided here.
+         *
+         * @param parameters The {@link Parameter}s to use
+         * @return This builder, for chaining
+         */
+        default Builder parameters(Iterable<Parameter> parameters) {
+            for (Parameter parameter : parameters) {
+                parameter(parameter);
+            }
+
+            return this;
+        }
 
         /**
          * Determines what to do if a child command throws an exception.
@@ -216,20 +252,7 @@ public interface Command {
          *                          to.
          * @return This builder, for chaining
          */
-        Builder childExceptionBehavior(ChildExceptionBehavior exceptionBehavior);
-
-        /**
-         * Provides a simple description for this command, typically no more
-         * than one line.
-         *
-         * <p>Fuller descriptions should be provided through
-         * {@link #extendedDescription(Text)}</p>
-         *
-         * @param description The description to use, or {@code null} for no
-         *                    description
-         * @return This builder, for chaining
-         */
-        Builder description(@Nullable Text description);
+        Builder setChildExceptionBehavior(ChildExceptionBehavior exceptionBehavior);
 
         /**
          * Provides the logic of the command.
@@ -239,19 +262,19 @@ public interface Command {
          * @param executor The {@link CommandExecutor} that will run the command
          * @return This builder, for chaining
          */
-        Builder executor(CommandExecutor executor);
+        Builder setExecutor(CommandExecutor executor);
 
         /**
          * Provides the description for this command.
          *
          * <p>A one line summary should be provided to
-         * {@link #description(Text)}</p>
+         * {@link #setShortDescription(Text)}</p>
          *
          * @param extendedDescription The description to use, or {@code null}
          *                            for no description.
          * @return This builder, for chaining
          */
-        Builder extendedDescription(@Nullable Text extendedDescription);
+        Builder setExtendedDescription(@Nullable Text extendedDescription);
 
         /**
          * The flags that this command should accept. See {@link Flags}.
@@ -259,7 +282,7 @@ public interface Command {
          * @param flags The {@link Flags} to accept
          * @return This builder, for chaining
          */
-        Builder flags(Flags flags);
+        Builder setFlags(Flags flags);
 
         /**
          * Determines how an argument string should be split.
@@ -270,25 +293,20 @@ public interface Command {
          * @param tokenizer The {@link InputTokenizer} to use
          * @return This builder, for chaining
          */
-        Builder inputTokenizer(InputTokenizer tokenizer);
+        Builder setInputTokenizer(InputTokenizer tokenizer);
 
         /**
-         * The parameter set to use when parsing arguments. Parameters will be
-         * used in the order provided here.
+         * Provides a simple description for this command, typically no more
+         * than one line.
          *
-         * @param parameters The {@link Parameter}s to use
+         * <p>Fuller descriptions should be provided through
+         * {@link #setExtendedDescription(Text)}</p>
+         *
+         * @param description The description to use, or {@code null} for no
+         *                    description
          * @return This builder, for chaining
          */
-        Builder parameters(Parameter... parameters);
-
-        /**
-         * The parameter set to use when parsing arguments. Parameters will be
-         * used in the order provided here.
-         *
-         * @param parameters The {@link Parameter}s to use
-         * @return This builder, for chaining
-         */
-        Builder parameters(Iterable<Parameter> parameters);
+        Builder setShortDescription(@Nullable Text description);
 
         /**
          * The permission that a {@link CommandSource} requires to run this
@@ -298,12 +316,42 @@ public interface Command {
          *                   for no permission
          * @return This builder, for chaining
          */
-        Builder permission(@Nullable String permission);
+        Builder setPermission(@Nullable String permission);
 
         /**
-         * Builds this command.
+         * If this is set to true, then if the parent command (this) requires
+         * a {@link CommandSource} to have a permission
+         * (see {@link #setPermission(String)}), this permission is
+         * required for all children too. If this is set to false, then
+         * child commands <em>do not</em> require this permission.
+         *
+         * <p>This defaults to {@code true}.</p>
+         *
+         * @param required Whether this command's permission is required for
+         *                 child commands.
+         * @return This builder, for chaining
+         */
+        Builder setRequirePermissionForChildren(boolean required);
+
+        /**
+         * Builds this command, creating a {@link Command} object
+         *
+         * <p>To build the command, <strong>one</strong> of the following is
+         * required:</p>
+         *
+         * <ul>
+         *     <li>A {@link CommandExecutor} is provided using
+         *     {@link #setExecutor(CommandExecutor)}</li>
+         *     <li>At least one {@link Command} is set to be a child command
+         *     using {@link #child(Command, Iterable)} or {@link #children(Map)}
+         *     </li>
+         * </ul>
+         *
+         * <p>If these conditions are not fulfilled, an
+         * {@link IllegalStateException} will be thrown.</p>
          *
          * @return The command, ready for registration
+         * @throws IllegalStateException if the builder is not complete
          */
         Command build();
 

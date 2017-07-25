@@ -104,7 +104,7 @@ public interface Flags {
          * {@link CommandContext} under the key equivalent to the
          * first flag in the managed array with the value {@code true}.
          *
-         * <p>Each entry in the managed will be treated as its own flag.
+         * <p>Each entry provided will be treated as its own flag.
          * There are two types of flags: short and long.</p>
          *
          * <ul>
@@ -116,35 +116,44 @@ public interface Flags {
          *     as "--flag"</li>
          * </ul>
          *
-         * @param specs The flag specifications
+         * @param primaryIdentifier The primary identifier
+         * @param secondaryIdentifiers Other flag identifiers that, if specified
+         *                             in a command, will be treated as if the
+         *                             primary identifier was specified.
          * @return This builder, for chaining
          */
-        Builder flag(String... specs);
+        Builder flag(String primaryIdentifier, String... secondaryIdentifiers);
 
         /**
          * Allow a flag with any of the provided specifications that has no
          * value but requires the source to have a specific permission to
          * specify the command.
          *
-         * @see #flag(String...) for details on the format
+         * @see #flag(String, String...) for details on the format
          * @param flagPermission The required permission
-         * @param specs The flag specifications
+         * @param primaryIdentifier The primary identifier
+         * @param secondaryIdentifiers Other flag identifiers that, if specified
+         *                             in a command, will be treated as if the
+         *                             primary identifier was specified.
          * @return This builder, for chaining
          */
-        Builder permissionFlag(final String flagPermission, String... specs);
+        Builder permissionFlag(String flagPermission, String primaryIdentifier, String... secondaryIdentifiers);
 
         /**
          * Allow a flag with any of the provided specifications, with the given
          * command element. The flag may be present multiple times, and may
          * therefore have multiple values.
          *
-         * @see #flag(String...) for information on how the flag specifications
-         *     are parsed
+         * @see #flag(String, String...) for information on how the flag
+         *      identifiers are parsed
          * @param value The command element used to parse any occurrences
-         * @param specs The flag specifications
+         * @param primaryIdentifier The primary identifier
+         * @param secondaryIdentifiers Other flag identifiers that, if specified
+         *                             in a command, will be treated as if the
+         *                             primary identifier was specified.
          * @return This builder, for chaining
          */
-        Builder valueFlag(Parameter value, String... specs);
+        Builder valueFlag(Parameter value, String primaryIdentifier, String... secondaryIdentifiers);
 
         /**
          * Sets how long flags that are not registered should be handled when

@@ -52,7 +52,7 @@ public interface ValueParameter extends ValueCompleter, ValueParser, ValueUsage 
      * @return The {@link Parameter}
      */
     default Parameter asParameter(String key, ValueParameterModifier... modifiers) {
-        return Parameter.builder().key(key).parser(this).addModifiers(modifiers).build();
+        return Parameter.builder().setKey(key).setParser(this).modifiers(modifiers).build();
     }
 
     /**
@@ -63,7 +63,7 @@ public interface ValueParameter extends ValueCompleter, ValueParser, ValueUsage 
      * @return The {@link Parameter}
      */
     default Parameter asParameter(Text key, ValueParameterModifier... modifiers) {
-        return Parameter.builder().key(key).parser(this).addModifiers(modifiers).build();
+        return Parameter.builder().setKey(key).setParser(this).modifiers(modifiers).build();
     }
 
 }
