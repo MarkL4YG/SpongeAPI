@@ -122,7 +122,10 @@ public interface Parameter {
      * Returns a {@link Parameter} that parses arguments using the supplied
      * parameters in order.
      *
-     * @param parameters The {@link Parameter}s
+     * @param first The first {@link Parameter} that should be used for parsing
+     * @param second The second {@link Parameter} that should be used for
+     *               parsing
+     * @param parameters The subsequent {@link Parameter}s to parse
      * @return The {@link Parameter}
      */
     static Parameter seq(Parameter first, Parameter second, Parameter... parameters) {
@@ -315,7 +318,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#BOOLEAN}
+         * {@link CatalogedValueParameters#BOOLEAN}.
          *
          * @return This builder, for chaining
          */
@@ -325,7 +328,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#DIMENSION}
+         * {@link CatalogedValueParameters#DIMENSION}.
          *
          * @return This builder, for chaining
          */
@@ -335,7 +338,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#DURATION}
+         * {@link CatalogedValueParameters#DURATION}.
          *
          * @return This builder, for chaining
          */
@@ -345,7 +348,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#DOUBLE}
+         * {@link CatalogedValueParameters#DOUBLE}.
          *
          * @return This builder, for chaining
          */
@@ -355,7 +358,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#ENTITY}
+         * {@link CatalogedValueParameters#ENTITY}.
          *
          * @return This builder, for chaining
          */
@@ -365,7 +368,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#ENTITY_OR_SOURCE}
+         * {@link CatalogedValueParameters#ENTITY_OR_SOURCE}.
          *
          * @return This builder, for chaining
          */
@@ -375,17 +378,17 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#INTEGER}
+         * {@link CatalogedValueParameters#INTEGER}.
          *
          * @return This builder, for chaining
          */
-        default Builder integer() {
+        default Builder integerNumber() {
             return setParser(CatalogedValueParameters.INTEGER);
         }
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#LOCATION}
+         * {@link CatalogedValueParameters#LOCATION}.
          *
          * @return This builder, for chaining
          */
@@ -395,7 +398,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#LONG}
+         * {@link CatalogedValueParameters#LONG}.
          *
          * @return This builder, for chaining
          */
@@ -405,7 +408,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#PLAYER}
+         * {@link CatalogedValueParameters#PLAYER}.
          *
          * @return This builder, for chaining
          */
@@ -415,7 +418,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#PLAYER_OR_SOURCE}
+         * {@link CatalogedValueParameters#PLAYER_OR_SOURCE}.
          *
          * @return This builder, for chaining
          */
@@ -425,7 +428,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#PLUGIN}
+         * {@link CatalogedValueParameters#PLUGIN}.
          *
          * @return This builder, for chaining
          */
@@ -435,7 +438,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#REMAINING_JOINED_STRINGS}
+         * {@link CatalogedValueParameters#REMAINING_JOINED_STRINGS}.
          *
          * @return This builder, for chaining
          */
@@ -445,7 +448,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#REMAINING_RAW_JOINED_STRINGS}
+         * {@link CatalogedValueParameters#REMAINING_RAW_JOINED_STRINGS}.
          *
          * @return This builder, for chaining
          */
@@ -455,7 +458,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#STRING}
+         * {@link CatalogedValueParameters#STRING}.
          *
          * @return This builder, for chaining
          */
@@ -465,7 +468,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#USER}
+         * {@link CatalogedValueParameters#USER}.
          *
          * @return This builder, for chaining
          */
@@ -475,7 +478,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#USER_OR_SOURCE}
+         * {@link CatalogedValueParameters#USER_OR_SOURCE}.
          *
          * @return This builder, for chaining
          */
@@ -485,7 +488,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#VECTOR3D}
+         * {@link CatalogedValueParameters#VECTOR3D}.
          *
          * @return This builder, for chaining
          */
@@ -495,7 +498,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#WORLD_PROPERTIES}
+         * {@link CatalogedValueParameters#WORLD_PROPERTIES}.
          *
          * @return This builder, for chaining
          */
@@ -505,7 +508,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#catalogedElement(Class)}
+         * {@link ValueParameters#catalogedElement(Class)}.
          *
          * @param type The type of {@link CatalogType} to retrieve
          * @return This builder, for chaining
@@ -516,7 +519,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#choices(String...)}
+         * {@link ValueParameters#choices(String...)}.
          *
          * @param choices The choices.
          * @return This builder, for chaining
@@ -527,7 +530,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#choices(Map)}
+         * {@link ValueParameters#choices(Map)}.
          *
          * @param choices The choices.
          * @return This builder, for chaining
@@ -538,7 +541,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#choices(String...)}
+         * {@link ValueParameters#choices(String...)}.
          *
          * @param choices The choices.
          * @param valueFunction A function that transforms the choice into a
@@ -551,7 +554,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#enumValue(Class)}
+         * {@link ValueParameters#enumValue(Class)}.
          *
          * @param enumClass The {@link Enum} to use.
          * @return This builder, for chaining
@@ -562,7 +565,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#literal(Object, String...)}
+         * {@link ValueParameters#literal(Object, String...)}.
          *
          * @param returnedValue The value to return if one of the provided
          *                      literals is matched
@@ -575,7 +578,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#literal(Object, Supplier)}
+         * {@link ValueParameters#literal(Object, Supplier)}.
          *
          * @param returnedValue The value to return if one of the provided
          *                      literals is matched
@@ -589,7 +592,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#ONLY_ONE}}
+         * {@link CatalogedValueParameterModifiers#ONLY_ONE}.
          *
          * @return This builder, for chaining
          */
@@ -599,7 +602,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#ALL_OF}}
+         * {@link CatalogedValueParameterModifiers#ALL_OF}.
          *
          * @return This builder, for chaining
          */
@@ -609,7 +612,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#OPTIONAL}
+         * {@link CatalogedValueParameterModifiers#OPTIONAL}.
          *
          * @return This builder, for chaining
          */
@@ -619,7 +622,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#OPTIONAL_WEAK}
+         * {@link CatalogedValueParameterModifiers#OPTIONAL_WEAK}.
          *
          * @return This builder, for chaining
          */
@@ -629,7 +632,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#defaultValue(Object)}
+         * {@link ValueParameterModifiers#defaultValue(Object)}.
          *
          * @param defaultValue The default value if this parameter does not
          *                     enter a value into the
@@ -642,7 +645,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#defaultValue(Object)}
+         * {@link ValueParameterModifiers#defaultValue(Object)}.
          *
          * @param defaultValueSupplier Supplies a default value if this
          *                             parameter does not enter a value into
@@ -655,7 +658,7 @@ public interface Parameter {
 
         /**
          * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#repeated(int)}
+         * {@link ValueParameterModifiers#repeated(int)}.
          *
          * @param times The number of times to repeat this parameter
          * @return This builder, for chaining
@@ -688,7 +691,7 @@ public interface Parameter {
          * @return This builder, for chaining
          */
         default Builder supportSelectors(Class<? extends Entity> entityType, boolean onlyOne, boolean strict) {
-           return modifiers(ValueParameterModifiers.selector(entityType, onlyOne, strict));
+            return modifiers(ValueParameterModifiers.selector(entityType, onlyOne, strict));
         }
 
         /**
@@ -708,7 +711,7 @@ public interface Parameter {
     interface SequenceBuilder extends ResettableBuilder<Parameter, SequenceBuilder> {
 
         /**
-         * Defines the next parameter in the parameter sequence
+         * Defines the next parameter in the parameter sequence.
          *
          * @param parameter The parameter
          * @return This builder, for chaining

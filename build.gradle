@@ -110,6 +110,7 @@ sortClassFields {
     add 'main', 'org.spongepowered.api.CatalogTypes'
     add 'main', 'org.spongepowered.api.boss.BossBarColors'
     add 'main', 'org.spongepowered.api.boss.BossBarOverlays'
+    add 'main', 'org.spongepowered.api.command.format.CommandMessageFormats'
     add 'main', 'org.spongepowered.api.command.parameter.flag.UnknownFlagBehaviors'
     add 'main', 'org.spongepowered.api.command.parameter.managed.CatalogedValueParameterModifiers'
     add 'main', 'org.spongepowered.api.command.parameter.managed.CatalogedValueParameters'

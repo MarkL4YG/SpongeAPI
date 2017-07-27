@@ -24,10 +24,12 @@
  */
 package org.spongepowered.api.command.parameter.managed.impl;
 
+import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
+
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.ArgumentParseException;
+import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.managed.ValueParameter;
 import org.spongepowered.api.command.parameter.token.CommandArgs;
 
@@ -38,8 +40,6 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
 
 /**
  * Abstract {@link ValueParameter} that matches values based on pattern.
@@ -58,14 +58,35 @@ public abstract class PatternMatchingValueParameter implements ValueParameter {
         return ImmutableList.copyOf(choices);
     }
 
+    /**
+     * Gets the value for a given choice. For any result in
+     * {@link #getChoices(CommandSource)}, this must return a non-null value.
+     * Otherwise, an {@link IllegalArgumentException} may be thrown.
+     *
+     * @param choice The specified choice
+     * @return the choice's value
+     * @throws IllegalArgumentException if the input string is not any return
+     *         value of {@link #getChoices(CommandSource)}
+     */
+    protected abstract Object getValue(String choice) throws IllegalArgumentException;
+
     @Override
     public Optional<Object> getValue(CommandSource source, CommandArgs args, CommandContext context)
             throws ArgumentParseException {
         final String unformattedPattern = args.next();
-        return Optional.of(getValue(source, args, unformattedPattern));
+        return Optional.of(getValues(source, args, unformattedPattern));
     }
 
-    public Collection<Object> getValue(CommandSource source, CommandArgs args, String unformattedPattern) throws ArgumentParseException {
+    /**
+     * Gets the value(s) for this parameter, based on the passed argument.
+     *
+     * @param source The {@link CommandSource}
+     * @param args The {@link CommandArgs}
+     * @param unformattedPattern The pattern to parse
+     * @return A {@link Collection} of {@link Object}s to put into the context
+     * @throws ArgumentParseException if parsing was unsuccessful
+     */
+    public final Collection<Object> getValues(CommandSource source, CommandArgs args, String unformattedPattern) throws ArgumentParseException {
         Pattern pattern = getFormattedPattern(unformattedPattern);
         Iterable<String> filteredChoices =
                 StreamSupport.stream(getChoices(source).spliterator(), false).filter(element -> pattern.matcher(element).find())
@@ -98,17 +119,5 @@ public abstract class PatternMatchingValueParameter implements ValueParameter {
      * @return the possible choices
      */
     protected abstract Iterable<String> getChoices(CommandSource source);
-
-    /**
-     * Gets the value for a given choice. For any result in
-     * {@link #getChoices(CommandSource)}, this must return a non-null value.
-     * Otherwise, an {@link IllegalArgumentException} may be thrown.
-     *
-     * @param choice The specified choice
-     * @return the choice's value
-     * @throws IllegalArgumentException if the input string is not any return
-     *         value of {@link #getChoices(CommandSource)}
-     */
-    protected abstract Object getValue(String choice) throws IllegalArgumentException;
 
 }

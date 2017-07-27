@@ -37,7 +37,7 @@ public interface ParsingContext {
      * chain.
      *
      * @throws ArgumentParseException if thrown by any {@link ValueParameterModifier}
-     * or {@link ValueParameter} in the chain.
+     *         or {@link ValueParameter} in the chain.
      */
     void next() throws ArgumentParseException;
 

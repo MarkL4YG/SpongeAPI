@@ -70,7 +70,7 @@ public interface CommandResult {
      * @param count The amount of blocks affected
      * @return The result
      */
-    static CommandResult affectedBlocks(int count) {
+    static CommandResult withAffectedBlocks(int count) {
         return builder().affectedBlocks(count).build();
     }
 
@@ -81,7 +81,7 @@ public interface CommandResult {
      * @param count The amount of entities affected
      * @return The result
      */
-    static CommandResult affectedEntities(int count) {
+    static CommandResult withAffectedEntities(int count) {
         return builder().affectedEntities(count).build();
     }
 
@@ -92,7 +92,7 @@ public interface CommandResult {
      * @param count The amount of items affected
      * @return The result
      */
-    static CommandResult affectedItems(int count) {
+    static CommandResult withAffectedItems(int count) {
         return builder().affectedItems(count).build();
     }
 
@@ -103,7 +103,7 @@ public interface CommandResult {
      * @param count The amount of queries
      * @return The result
      */
-    static CommandResult queryResult(int count) {
+    static CommandResult withQueryResult(int count) {
         return builder().queryResult(count).build();
     }
 
@@ -147,7 +147,7 @@ public interface CommandResult {
     OptionalInt queryResult();
 
     /**
-     * Builds {@link CommandResult}s
+     * Builds {@link CommandResult}s.
      */
     interface Builder extends ResettableBuilder<CommandResult, Builder> {
 

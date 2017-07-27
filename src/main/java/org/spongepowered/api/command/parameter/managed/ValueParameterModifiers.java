@@ -45,6 +45,8 @@ public final class ValueParameterModifiers {
     /**
      * Indicates that the parameter should continue to parse all remaining
      * elements in the provided set of arguments.
+     *
+     * @return The {@link ValueParameterModifier}
      */
     public static ValueParameterModifier allOf() {
         return CatalogedValueParameterModifiers.ALL_OF;
@@ -53,16 +55,20 @@ public final class ValueParameterModifiers {
     /**
      * Indicates that there should only be one element returned by the
      * parameter.
+     *
+     * @return The {@link ValueParameterModifier}
      */
-    public final ValueParameterModifier onlyOne() {
+    public static ValueParameterModifier onlyOne() {
         return CatalogedValueParameterModifiers.ONLY_ONE;
     }
 
     /**
      * Indicates that the parameter is optional, but will throw an exception
      * if an argument exists to be parsed.
+     *
+     * @return The {@link ValueParameterModifier}
      */
-    public final ValueParameterModifier optional() {
+    public static ValueParameterModifier optional() {
         return CatalogedValueParameterModifiers.OPTIONAL;
     }
 
@@ -70,8 +76,10 @@ public final class ValueParameterModifiers {
      * Indicates that the parameter is optional, and will not prevent the rest
      * of the command arguments from being parsed if this cannot parse an
      * argument.
+     *
+     * @return The {@link ValueParameterModifier}
      */
-    public final ValueParameterModifier optionalWeak() {
+    public static ValueParameterModifier optionalWeak() {
         return CatalogedValueParameterModifiers.OPTIONAL_WEAK;
     }
 

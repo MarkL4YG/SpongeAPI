@@ -34,7 +34,7 @@ import java.util.Optional;
 
 /**
  * The {@link CommandContext} contains the parsed arguments for a
- * command, and any other information that might be important
+ * command, and any other information that might be important.
  */
 public interface CommandContext {
 

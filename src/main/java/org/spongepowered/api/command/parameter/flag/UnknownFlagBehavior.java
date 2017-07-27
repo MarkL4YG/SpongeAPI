@@ -26,8 +26,8 @@ package org.spongepowered.api.command.parameter.flag;
 
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.ArgumentParseException;
+import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.token.CommandArgs;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
@@ -54,7 +54,7 @@ public interface UnknownFlagBehavior extends CatalogType {
      *                                   state
      * @param contextPreviousState The previous {@link CommandContext}
      *                             state
-     * @param flag
+     * @param flag The flag that was attempted to be parsed
      * @throws ArgumentParseException thrown if there is an issue parsing the
      *                                 argument
      */

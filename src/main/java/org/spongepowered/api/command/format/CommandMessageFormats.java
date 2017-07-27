@@ -22,30 +22,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameter.token;
+package org.spongepowered.api.command.format;
 
-import org.spongepowered.api.CatalogType;
-import org.spongepowered.api.command.parameter.ArgumentParseException;
-import org.spongepowered.api.command.parameter.Parameter;
-import org.spongepowered.api.util.annotation.CatalogedBy;
+import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
-import java.util.List;
+public final class CommandMessageFormats {
 
-/**
- * Provides a function to transform raw strings into tokens, which can be
- * consumed by {@link Parameter}s.
- */
-@CatalogedBy(InputTokenizers.class)
-public interface InputTokenizer extends CatalogType {
+    private CommandMessageFormats() {}
+
+    // SORTFIELDS:ON
 
     /**
-     * Take the input string and split it as appropriate into argument tokens.
-     *
-     * @param arguments The provided arguments
-     * @param lenient Whether to parse leniently
-     * @return The tokenized strings. Empty list if error occurs
-     * @throws ArgumentParseException if an invalid input is provided
+     * Formats text to use the suggested formatting for a debug message.
      */
-    List<SingleArg> tokenize(String arguments, boolean lenient) throws ArgumentParseException;
+    public static final CommandMessageFormat DEBUG = DummyObjectProvider.createFor(CommandMessageFormat.class, "debug");
+
+    /**
+     * Formats text to use the suggested formatting for an error message.
+     *
+     * <p>This is not necessary when creating an exception to be thrown</p>
+     */
+    public static final CommandMessageFormat ERROR = DummyObjectProvider.createFor(CommandMessageFormat.class, "error");
+
+    /**
+     * Formats text to use the suggested formatting for a success message.
+     */
+    public static final CommandMessageFormat SUCCESS = DummyObjectProvider.createFor(CommandMessageFormat.class, "success");
+
+    /**
+     * Formats text to use the suggested formatting for a system message.
+     */
+    public static final CommandMessageFormat SYSTEM = DummyObjectProvider.createFor(CommandMessageFormat.class, "system");
+
+    // SORTFIELDS:OFF
 
 }

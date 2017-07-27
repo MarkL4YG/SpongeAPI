@@ -27,12 +27,12 @@ package org.spongepowered.api.command.parameter.managed.factories;
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.command.parameter.managed.ValueParameter;
 
-import javax.annotation.Nullable;
-
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import javax.annotation.Nullable;
 
 /**
  * Provides {@link ValueParameter}s that cannot be cataloged.
@@ -47,6 +47,7 @@ public interface ValueParameterFactory {
      *
      * @param catalogType The {@link Class} type of the {@link CatalogType} that
      *                    should be returned.
+     * @param prefixes The ID prefixes to assume if the exact ID does not exist
      * @param <T> The type
      * @return The constructed {@link ValueParameter}.
      */

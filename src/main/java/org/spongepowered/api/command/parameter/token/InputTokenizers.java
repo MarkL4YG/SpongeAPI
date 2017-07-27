@@ -55,7 +55,7 @@ public final class InputTokenizers {
      *     an exception.</li>
      * </ul>
      *
-     * See also {@link #QUOTED_STRING}
+     * <p>See also {@link #QUOTED_STRING}</p>
      */
     public static final InputTokenizer LENIENT_QUOTED_STRING = DummyObjectProvider.createFor(InputTokenizer.class, "LENIENT_QUOTED_STRING");
 
@@ -71,7 +71,7 @@ public final class InputTokenizers {
      *     <li>Implementations can request lenient parsing.</li>
      * </ul>
      *
-     * See also {@link #LENIENT_QUOTED_STRING}
+     * <p>See also {@link #LENIENT_QUOTED_STRING}</p>
      */
     public static final InputTokenizer QUOTED_STRING = DummyObjectProvider.createFor(InputTokenizer.class, "QUOTED_STRING");
 

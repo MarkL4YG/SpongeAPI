@@ -26,9 +26,9 @@ package org.spongepowered.api.command.parameter.flag;
 
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameter.ArgumentParseException;
 import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.Parameter;
-import org.spongepowered.api.command.parameter.ArgumentParseException;
 import org.spongepowered.api.command.parameter.token.CommandArgs;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
@@ -75,6 +75,7 @@ public interface Flags {
      * @param source The {@link CommandSource} that is running this command
      * @param args The {@link CommandArgs}
      * @param context The {@link CommandContext}
+     * @throws ArgumentParseException thrown if a flag could not be parsed
      */
     void parse(CommandSource source, CommandArgs args, CommandContext context) throws ArgumentParseException;
 

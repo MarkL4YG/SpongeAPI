@@ -22,30 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameter.token;
+package org.spongepowered.api.command.format;
 
 import org.spongepowered.api.CatalogType;
-import org.spongepowered.api.command.parameter.ArgumentParseException;
-import org.spongepowered.api.command.parameter.Parameter;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
-import java.util.List;
-
 /**
- * Provides a function to transform raw strings into tokens, which can be
- * consumed by {@link Parameter}s.
+ * Defines a standard format for command messages.
  */
-@CatalogedBy(InputTokenizers.class)
-public interface InputTokenizer extends CatalogType {
+@CatalogedBy(CommandMessageFormats.class)
+public interface CommandMessageFormat extends CatalogType {
 
     /**
-     * Take the input string and split it as appropriate into argument tokens.
+     * Applies the format to the provided text.
      *
-     * @param arguments The provided arguments
-     * @param lenient Whether to parse leniently
-     * @return The tokenized strings. Empty list if error occurs
-     * @throws ArgumentParseException if an invalid input is provided
+     * @param text The {@link Text} to apply the format to
+     * @return The formatted text
      */
-    List<SingleArg> tokenize(String arguments, boolean lenient) throws ArgumentParseException;
+    Text applyFormat(Text text);
 
 }

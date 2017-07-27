@@ -24,9 +24,11 @@
  */
 package org.spongepowered.api.command.parameter.managed.impl;
 
+import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
+
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.ArgumentParseException;
+import org.spongepowered.api.command.parameter.CommandContext;
 import org.spongepowered.api.command.parameter.managed.ValueParameter;
 import org.spongepowered.api.command.parameter.token.CommandArgs;
 import org.spongepowered.api.entity.Entity;
@@ -36,8 +38,6 @@ import org.spongepowered.api.text.selector.Selector;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.spongepowered.api.util.SpongeApiTranslationHelper.t;
-
 /**
  * Abstract {@link ValueParameter} that matches values based on a {@link Selector}.
  */
@@ -45,6 +45,13 @@ public abstract class SelectorValueParameter extends PatternMatchingValueParamet
 
     private final Class<? extends Entity> entityTarget;
 
+    /**
+     * Initializes the {@link SelectorValueParameter}, defining what can be
+     * returned by a selector.
+     *
+     * @param entityTarget The type of {@link Entity} that can be returned by
+     *                     selectors on this parameter
+     */
     public SelectorValueParameter(Class<? extends Entity> entityTarget) {
         this.entityTarget = entityTarget;
     }

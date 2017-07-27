@@ -25,12 +25,12 @@
 package org.spongepowered.api.command;
 
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.parameter.Parameter;
-import org.spongepowered.api.command.parameter.flag.Flags;
-import org.spongepowered.api.command.parameter.token.InputTokenizer;
 import org.spongepowered.api.command.managed.ChildExceptionBehavior;
 import org.spongepowered.api.command.managed.ChildExceptionBehaviors;
 import org.spongepowered.api.command.managed.CommandExecutor;
+import org.spongepowered.api.command.parameter.Parameter;
+import org.spongepowered.api.command.parameter.flag.Flags;
+import org.spongepowered.api.command.parameter.token.InputTokenizer;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
 import org.spongepowered.api.world.Location;
@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
 public interface Command {
 
     /**
-     * Gets a builder for building a {@link Command}
+     * Gets a builder for building a {@link Command}.
      *
      * @return The {@link Builder}
      */

@@ -45,25 +45,4 @@ public class CommandMessageFormatting {
     public static final Text LEFT_PARENTHESIS = Text.of("(");
     public static final Text RIGHT_PARENTHESIS = Text.of(")");
 
-    /**
-     * Format text to be output as an error directly to a sender. Not necessary
-     * when creating an exception to be thrown
-     *
-     * @param error The error message
-     * @return The formatted error message.
-     */
-    public static Text error(Text error) {
-        return error.toBuilder().color(TextColors.RED).build();
-    }
-
-    /**
-     * Format text to be output as a debug message directly to a sender.
-     *
-     * @param debug The debug message
-     * @return The formatted debug message.
-     */
-    public static Text debug(Text debug) {
-        return debug.toBuilder().color(TextColors.GRAY).build();
-    }
-
 }

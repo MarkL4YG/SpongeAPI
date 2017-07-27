@@ -71,21 +71,21 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link Boolean}.</p>
      */
-    public final static CatalogedValueParameter BOOLEAN = DummyObjectProvider.createFor(CatalogedValueParameter.class, "BOOLEAN");
+    public static final CatalogedValueParameter BOOLEAN = DummyObjectProvider.createFor(CatalogedValueParameter.class, "BOOLEAN");
 
     /**
      * Expect an argument to represent a dimension.
      *
      * <p>Returns a {@link Dimension}</p>
      */
-    public final static CatalogedValueParameter DIMENSION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DIMENSION");
+    public static final CatalogedValueParameter DIMENSION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DIMENSION");
 
     /**
      * Require an argument to be an double-precision floating point number.
      *
      * <p>Returns a {@link Double}.</p>
      */
-    public final static CatalogedValueParameter DOUBLE = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DOUBLE");
+    public static final CatalogedValueParameter DOUBLE = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DOUBLE");
 
     /**
      * Require an argument to be a duration.
@@ -103,7 +103,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link Duration}.</p>
      */
-    public final static CatalogedValueParameter DURATION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DURATION");
+    public static final CatalogedValueParameter DURATION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "DURATION");
 
     /**
      * TODO: This
@@ -112,7 +112,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns an {@link Entity}.</p>
      */
-    public final static CatalogedValueParameter ENTITY = DummyObjectProvider.createFor(CatalogedValueParameter.class, "ENTITY");
+    public static final CatalogedValueParameter ENTITY = DummyObjectProvider.createFor(CatalogedValueParameter.class, "ENTITY");
 
     /**
      * TODO: This
@@ -121,7 +121,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns an {@link Entity}.</p>
      */
-    public final static CatalogedValueParameter ENTITY_OR_SOURCE =
+    public static final CatalogedValueParameter ENTITY_OR_SOURCE =
             DummyObjectProvider.createFor(CatalogedValueParameter.class, "ENTITY_OR_SOURCE");
 
     /**
@@ -129,7 +129,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns an {@link Integer}.</p>
      */
-    public final static CatalogedValueParameter INTEGER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "INTEGER");
+    public static final CatalogedValueParameter INTEGER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "INTEGER");
 
     /**
      * Expect an argument to represent a {@link Location}.
@@ -143,21 +143,21 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link Location}.</p>
      */
-    public final static CatalogedValueParameter LOCATION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "LOCATION");
+    public static final CatalogedValueParameter LOCATION = DummyObjectProvider.createFor(CatalogedValueParameter.class, "LOCATION");
 
     /**
      * Require an argument to be a long (base 10).
      *
      * <p>Returns a {@link Long}.</p>
      */
-    public final static CatalogedValueParameter LONG = DummyObjectProvider.createFor(CatalogedValueParameter.class, "LONG");
+    public static final CatalogedValueParameter LONG = DummyObjectProvider.createFor(CatalogedValueParameter.class, "LONG");
 
     /**
      * Does not parse any arguments, returning nothing.
      *
      * <p>Returns nothing - no entry will be placed into any provided key.</p>
      */
-    public final static CatalogedValueParameter NONE = DummyObjectProvider.createFor(CatalogedValueParameter.class, "NONE");
+    public static final CatalogedValueParameter NONE = DummyObjectProvider.createFor(CatalogedValueParameter.class, "NONE");
 
     /**
      * Expect an argument to represent an online player.
@@ -166,7 +166,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link Player}.</p>
      */
-    public final static CatalogedValueParameter PLAYER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER");
+    public static final CatalogedValueParameter PLAYER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER");
 
     /**
      * Expect an argument to represent an online player, or if nothing matches
@@ -177,7 +177,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link Player}.</p>
      */
-    public final static CatalogedValueParameter PLAYER_OR_SOURCE =
+    public static final CatalogedValueParameter PLAYER_OR_SOURCE =
             DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER_OR_SOURCE");
 
     /**
@@ -185,7 +185,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link PluginContainer}</p>
      */
-    public final static CatalogedValueParameter PLUGIN =
+    public static final CatalogedValueParameter PLUGIN =
             DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER_OR_SOURCE");
 
     /**
@@ -194,7 +194,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link String}.</p>
      */
-    public final static CatalogedValueParameter REMAINING_JOINED_STRINGS =
+    public static final CatalogedValueParameter REMAINING_JOINED_STRINGS =
             DummyObjectProvider.createFor(CatalogedValueParameter.class, "REMAINING_JOINED_STRINGS");
 
     /**
@@ -203,7 +203,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link String}.</p>
      */
-    public final static CatalogedValueParameter REMAINING_RAW_JOINED_STRINGS =
+    public static final CatalogedValueParameter REMAINING_RAW_JOINED_STRINGS =
             DummyObjectProvider.createFor(CatalogedValueParameter.class, "REMAINING_RAW_JOINED_STRINGS");
 
     /**
@@ -211,7 +211,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link String}.</p>
      */
-    public final static CatalogedValueParameter STRING = DummyObjectProvider.createFor(CatalogedValueParameter.class, "STRING");
+    public static final CatalogedValueParameter STRING = DummyObjectProvider.createFor(CatalogedValueParameter.class, "STRING");
 
     /**
      * Expect an argument to represent a player who has been online at some
@@ -221,7 +221,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link User}.</p>
      */
-    public final static CatalogedValueParameter USER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "USER");
+    public static final CatalogedValueParameter USER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "USER");
 
     /**
      * Expect an argument to represent a player who has been online at some
@@ -232,7 +232,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link User}.</p>
      */
-    public final static CatalogedValueParameter USER_OR_SOURCE =
+    public static final CatalogedValueParameter USER_OR_SOURCE =
             DummyObjectProvider.createFor(CatalogedValueParameter.class, "USER_OR_SOURCE");
 
     /**
@@ -247,7 +247,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link Vector3d}.</p>
      */
-    public final static CatalogedValueParameter VECTOR3D = DummyObjectProvider.createFor(CatalogedValueParameter.class, "VECTOR3D");
+    public static final CatalogedValueParameter VECTOR3D = DummyObjectProvider.createFor(CatalogedValueParameter.class, "VECTOR3D");
 
     /**
      * Expect an argument to represent a world.
@@ -263,7 +263,7 @@ public final class CatalogedValueParameters {
      *
      * <p>Returns a {@link WorldProperties}.</p>
      */
-    public final static CatalogedValueParameter WORLD_PROPERTIES = DummyObjectProvider.createFor(CatalogedValueParameter.class, "WORLD_PROPERTIES");
+    public static final CatalogedValueParameter WORLD_PROPERTIES = DummyObjectProvider.createFor(CatalogedValueParameter.class, "WORLD_PROPERTIES");
 
     // SORTFIELDS:OFF
 

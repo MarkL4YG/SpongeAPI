@@ -82,15 +82,19 @@ public final class ValueParameters {
      * </ul>
      *
      * <p>Returns a {@link Boolean}</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter bool() {
         return CatalogedValueParameters.BOOLEAN;
-    };
+    }
 
     /**
      * Expect an argument to represent a dimension.
      *
      * <p>Returns a {@link Dimension}</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter dimension() {
         return CatalogedValueParameters.DIMENSION;
@@ -100,6 +104,8 @@ public final class ValueParameters {
      * Require an argument to be an double-precision floating point number.
      *
      * <p>Returns a {@link Double}</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter doubleNumber() {
         return CatalogedValueParameters.DOUBLE;
@@ -120,28 +126,40 @@ public final class ValueParameters {
      * </ul>
      *
      * <p>Returns a {@link Duration}</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter duration() {
         return CatalogedValueParameters.DIMENSION;
     }
 
     /**
-     * TODO: This
+     * Require an argument to be an entity.
+     *
+     * <p>{@link CommandSource}s that are themselves an {@link Entity} can also
+     * use {@code #target} to target the entity that is being looked at.</p>
      *
      * <p>This parameter accepts selectors.</p>
      *
      * <p>Returns an {@link Entity}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter entity() {
         return CatalogedValueParameters.ENTITY;
     }
 
     /**
-     * TODO: This
+     * Require an argument to be an entity.
+     *
+     * <p>If the argument fails to parse, the caller of the command, if an
+     * {@link Entity}, will be returned instead.</p>
      *
      * <p>This parameter accepts selectors.</p>
      *
      * <p>Returns an {@link Entity}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter entityOrSource() {
         return CatalogedValueParameters.ENTITY_OR_SOURCE;
@@ -151,6 +169,8 @@ public final class ValueParameters {
      * Require an argument to be an integer (base 10) number.
      *
      * <p>Returns an {@link Integer}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter integer() {
         return CatalogedValueParameters.INTEGER;
@@ -167,6 +187,8 @@ public final class ValueParameters {
      * </ul>
      *
      * <p>Returns a {@link Location}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter location() {
         return CatalogedValueParameters.LOCATION;
@@ -176,6 +198,8 @@ public final class ValueParameters {
      * Require an argument to be a long (base 10).
      *
      * <p>Returns a {@link Long}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter longNum() {
         return CatalogedValueParameters.LONG;
@@ -185,6 +209,8 @@ public final class ValueParameters {
      * Does not parse any arguments, returning nothing.
      *
      * <p>Returns nothing - no entry will be placed into any provided key.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter none() {
         return CatalogedValueParameters.NONE;
@@ -196,6 +222,8 @@ public final class ValueParameters {
      * <p>This parameter accepts selectors.</p>
      *
      * <p>Returns a {@link Player}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter player() {
         return CatalogedValueParameters.PLAYER;
@@ -209,6 +237,8 @@ public final class ValueParameters {
      * <p>This parameter accepts selectors.</p>
      *
      * <p>Returns a {@link Player}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter playerOrSource() {
         return CatalogedValueParameters.PLAYER_OR_SOURCE;
@@ -218,6 +248,8 @@ public final class ValueParameters {
      * Expect an argument to represent a {@link PluginContainer}'s id.
      *
      * <p>Returns a {@link PluginContainer}</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter plugin() {
         return CatalogedValueParameters.PLUGIN;
@@ -228,6 +260,8 @@ public final class ValueParameters {
      * into a single, space-separated string.
      *
      * <p>Returns a {@link String}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter remainingJoinedStrings() {
         return CatalogedValueParameters.REMAINING_JOINED_STRINGS;
@@ -238,6 +272,8 @@ public final class ValueParameters {
      * space-separated string.
      *
      * <p>Returns a {@link String}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter remainingRawJoinedStrings() {
         return CatalogedValueParameters.REMAINING_RAW_JOINED_STRINGS;
@@ -247,6 +283,8 @@ public final class ValueParameters {
      * Require an argument to be a string.
      *
      * <p>Returns a {@link String}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter string() {
         return CatalogedValueParameters.STRING;
@@ -259,6 +297,8 @@ public final class ValueParameters {
      * <p>This parameter accepts selectors (to obtain players).</p>
      *
      * <p>Returns a {@link User}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter user() {
         return CatalogedValueParameters.USER;
@@ -272,6 +312,8 @@ public final class ValueParameters {
      * <p>This parameter accepts selectors (to obtain players).</p>
      *
      * <p>Returns a {@link User}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter userOrSource() {
         return CatalogedValueParameters.USER_OR_SOURCE;
@@ -288,6 +330,8 @@ public final class ValueParameters {
      * <p>Each element can be relative to a location -- relative is ~(num)</p>
      *
      * <p>Returns a {@link Vector3d}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter vector3d() {
         return CatalogedValueParameters.VECTOR3D;
@@ -306,6 +350,8 @@ public final class ValueParameters {
      * </ul>
      *
      * <p>Returns a {@link WorldProperties}.</p>
+     *
+     * @return The {@link ValueParameter}
      */
     public static ValueParameter worldProperties() {
         return CatalogedValueParameters.WORLD_PROPERTIES;
@@ -338,6 +384,7 @@ public final class ValueParameters {
      *
      * @param catalogType The {@link Class} type of the {@link CatalogType} that
      *                    should be returned.
+     * @param prefixes The ID prefixes to assume if the exact ID does not exist
      * @param <T> The type
      * @return The constructed {@link ValueParameter}.
      */
@@ -367,15 +414,16 @@ public final class ValueParameters {
      * Returns a parameter that allows selecting from a limited set of values.
      * These choices are case insensitive. The matched choice will be returned.
      *
-     * <p>If there are 5 or fewer choices available, and "showUsage" is true,
+     * <p>If there are 5 or fewer choices available, and "showInUsage" is true,
      * the choices will be shown in the command usage. Otherwise, the usage
      * will only display only the key.</p>
      *
+     * @param showInUsage Whether to show the choices in the usage
      * @param choices The choices for this parameter.
      * @return The constructed {@link ValueParameter}.
      */
-    public static ValueParameter choices(boolean showUsage, String... choices) {
-        return choices(showUsage, Arrays.stream(choices).collect(Collectors.toMap(x -> x.toLowerCase(Locale.ENGLISH), Function.identity())));
+    public static ValueParameter choices(boolean showInUsage, String... choices) {
+        return choices(showInUsage, Arrays.stream(choices).collect(Collectors.toMap(x -> x.toLowerCase(Locale.ENGLISH), Function.identity())));
     }
 
     /**
@@ -403,15 +451,16 @@ public final class ValueParameters {
      * insensitive. If a choice is matched, the corresponding value in the map
      * will be returned.
      *
-     * <p>If there are 5 or fewer choices available, and "showUsage" is true,
+     * <p>If there are 5 or fewer choices available, and "showInUsage" is true,
      * the choices will be shown in the command usage. Otherwise, the usage
      * will only display only the key.</p>
      *
+     * @param showInUsage Whether to show the choices in the usage
      * @param choices The choices for this parameter.
      * @return The constructed {@link ValueParameter}.
      */
-    public static ValueParameter choices(boolean showUsage, Map<String, ?> choices) {
-        return choices(showUsage, () -> choices);
+    public static ValueParameter choices(boolean showInUsage, Map<String, ?> choices) {
+        return choices(showInUsage, () -> choices);
     }
 
     /**
@@ -421,16 +470,16 @@ public final class ValueParameters {
      * insensitive. If a choice is matched, the corresponding value in the map
      * will be returned.
      *
-     * <p>If there are 5 or fewer choices available, and "showUsage" is true,
+     * <p>If there are 5 or fewer choices available, and "showInUsage" is true,
      * the choices will be shown in the command usage. Otherwise, the usage
      * will only display only the key.</p>
      *
-     * @param showUsage Whether to show the usage.
+     * @param showInUsage Whether to show the usage.
      * @param choices The choices for this parameter.
      * @return The constructed {@link ValueParameter}.
      */
-    public static ValueParameter choices(boolean showUsage, Supplier<Map<String, ?>> choices) {
-        return factory.choices(showUsage, choices);
+    public static ValueParameter choices(boolean showInUsage, Supplier<Map<String, ?>> choices) {
+        return factory.choices(showInUsage, choices);
     }
 
     /**
@@ -440,17 +489,17 @@ public final class ValueParameters {
      * insensitive. If a choice is matched, the corresponding value in the map
      * will be returned.
      *
-     * <p>If there are 5 or fewer choices available, and "showUsage" is true,
+     * <p>If there are 5 or fewer choices available, and "showInUsage" is true,
      * the choices will be shown in the command usage. Otherwise, the usage
      * will only display only the key.</p>
      *
-     * @param showUsage Whether to show the usage.
+     * @param showInUsage Whether to show the usage.
      * @param choices The choices for this parameter.
      * @param valueFunction The function that converts a choice into a value.
      * @return The constructed {@link ValueParameter}.
      */
-    public static ValueParameter choices(boolean showUsage, Supplier<Collection<String>> choices, Function<String, ?> valueFunction) {
-        return factory.choices(showUsage, choices, valueFunction);
+    public static ValueParameter choices(boolean showInUsage, Supplier<Collection<String>> choices, Function<String, ?> valueFunction) {
+        return factory.choices(showInUsage, choices, valueFunction);
     }
 
     /**
