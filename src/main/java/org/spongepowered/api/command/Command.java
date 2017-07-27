@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -265,6 +266,20 @@ public interface Command {
         Builder setExecutor(CommandExecutor executor);
 
         /**
+         * Provides the description for this command, which is dependent on the
+         * {@link CommandSource} that requests it.
+         *
+         * <p>A one line summary should be provided to
+         * {@link #setShortDescription(Text)}</p>
+         *
+         * @param extendedDescriptionFunction A function that provides a
+         *                                    relevant description based on the
+         *                                    supplied {@link CommandSource}
+         * @return This builder, for chaining
+         */
+        Builder setExtendedDescription(Function<CommandSource, Optional<Text>> extendedDescriptionFunction);
+
+        /**
          * Provides the description for this command.
          *
          * <p>A one line summary should be provided to
@@ -274,7 +289,11 @@ public interface Command {
          *                            for no description.
          * @return This builder, for chaining
          */
-        Builder setExtendedDescription(@Nullable Text extendedDescription);
+        default Builder setExtendedDescription(@Nullable Text extendedDescription) {
+            // Done outside the lambda so that we don't have to recreate the object each time.
+            Optional<Text> text = Optional.ofNullable(extendedDescription);
+            return setExtendedDescription(commandSource -> text);
+        }
 
         /**
          * The flags that this command should accept. See {@link Flags}.
@@ -297,6 +316,21 @@ public interface Command {
 
         /**
          * Provides a simple description for this command, typically no more
+         * than one line, which is dependent on the {@link CommandSource} that
+         * requests it.
+         *
+         * <p>Fuller descriptions should be provided through
+         * {@link #setExtendedDescription(Text)}</p>
+         *
+         * @param descriptionFunction A function that provides a relevant
+         *                            description based on the supplied
+         *                            {@link CommandSource}
+         * @return This builder, for chaining
+         */
+        Builder setShortDescription(Function<CommandSource, Optional<Text>> descriptionFunction);
+
+        /**
+         * Provides a simple description for this command, typically no more
          * than one line.
          *
          * <p>Fuller descriptions should be provided through
@@ -306,7 +340,11 @@ public interface Command {
          *                    description
          * @return This builder, for chaining
          */
-        Builder setShortDescription(@Nullable Text description);
+        default Builder setShortDescription(@Nullable Text description) {
+            // Done outside the lambda so that we don't have to recreate the object each time.
+            Optional<Text> text = Optional.ofNullable(description);
+            return setShortDescription(commandSource -> text);
+        }
 
         /**
          * The permission that a {@link CommandSource} requires to run this
