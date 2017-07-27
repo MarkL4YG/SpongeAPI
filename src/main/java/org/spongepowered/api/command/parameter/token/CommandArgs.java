@@ -133,19 +133,16 @@ public interface CommandArgs {
      * Creates a snapshot of this context and returns a state object that can
      * be used to restore the argument state to this state.
      *
-     * <p>No assumptions should be made about the form of this state object,
-     * it is not defined in the API and may change at any time.</p>
-     *
      * @return The state.
      */
-    Object getState();
+    Snapshot getState();
 
     /**
      * Uses a previous snapshot of the argument and restores it to that state.
      *
      * @param state The state obtained from {@link #getState()}
      */
-    void setState(Object state);
+    void setState(Snapshot state);
 
     /**
      * Creates a {@link ArgumentParseException} based on the current state of
@@ -173,4 +170,13 @@ public interface CommandArgs {
      * @return A string containing the arguments.
      */
     String rawArgsFromCurrentPosition();
+
+    /**
+     * An immutable snapshot of a {@link CommandArgs}.
+     *
+     * <p>No assumptions should be made about the form of this state object,
+     * it is not defined in the API and may change at any time.</p>
+     */
+    interface Snapshot {}
+
 }
