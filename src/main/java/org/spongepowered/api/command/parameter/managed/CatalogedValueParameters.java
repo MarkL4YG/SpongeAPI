@@ -186,7 +186,7 @@ public final class CatalogedValueParameters {
      * <p>Returns a {@link PluginContainer}</p>
      */
     public static final CatalogedValueParameter PLUGIN =
-            DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER_OR_SOURCE");
+            DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLUGIN");
 
     /**
      * Require one or more strings, without any processing, which are combined
