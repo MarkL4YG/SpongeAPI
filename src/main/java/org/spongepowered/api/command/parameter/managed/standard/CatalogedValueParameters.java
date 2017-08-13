@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameter.managed;
+package org.spongepowered.api.command.parameter.managed.standard;
 
 import com.flowpowered.math.vector.Vector3d;
 import org.spongepowered.api.command.CommandSource;
@@ -115,16 +115,6 @@ public final class CatalogedValueParameters {
     public static final CatalogedValueParameter ENTITY = DummyObjectProvider.createFor(CatalogedValueParameter.class, "ENTITY");
 
     /**
-     * TODO: This
-     *
-     * <p>This parameter accepts selectors.</p>
-     *
-     * <p>Returns an {@link Entity}.</p>
-     */
-    public static final CatalogedValueParameter ENTITY_OR_SOURCE =
-            DummyObjectProvider.createFor(CatalogedValueParameter.class, "ENTITY_OR_SOURCE");
-
-    /**
      * Require an argument to be an integer (base 10) number.
      *
      * <p>Returns an {@link Integer}.</p>
@@ -169,18 +159,6 @@ public final class CatalogedValueParameters {
     public static final CatalogedValueParameter PLAYER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER");
 
     /**
-     * Expect an argument to represent an online player, or if nothing matches
-     * and the calling {@link CommandSource} is a {@link Player}, returns the
-     * calling player.
-     *
-     * <p>This parameter accepts selectors.</p>
-     *
-     * <p>Returns a {@link Player}.</p>
-     */
-    public static final CatalogedValueParameter PLAYER_OR_SOURCE =
-            DummyObjectProvider.createFor(CatalogedValueParameter.class, "PLAYER_OR_SOURCE");
-
-    /**
      * Expect an argument to represent a {@link PluginContainer}'s id.
      *
      * <p>Returns a {@link PluginContainer}</p>
@@ -222,18 +200,6 @@ public final class CatalogedValueParameters {
      * <p>Returns a {@link User}.</p>
      */
     public static final CatalogedValueParameter USER = DummyObjectProvider.createFor(CatalogedValueParameter.class, "USER");
-
-    /**
-     * Expect an argument to represent a player who has been online at some
-     * point, as a {@link User}. If nothing matches and the calling
-     * {@link CommandSource} is a {@link User}, return the caller.
-     *
-     * <p>This parameter accepts selectors (to obtain players).</p>
-     *
-     * <p>Returns a {@link User}.</p>
-     */
-    public static final CatalogedValueParameter USER_OR_SOURCE =
-            DummyObjectProvider.createFor(CatalogedValueParameter.class, "USER_OR_SOURCE");
 
     /**
      * Expect an argument to represent a {@link Vector3d}.

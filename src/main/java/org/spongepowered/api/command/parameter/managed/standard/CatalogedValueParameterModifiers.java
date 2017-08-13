@@ -22,8 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameter.managed;
+package org.spongepowered.api.command.parameter.managed.standard;
 
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.command.parameter.managed.ValueParameterModifier;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 /**
@@ -58,8 +62,29 @@ public final class CatalogedValueParameterModifiers {
      * of the command arguments from being parsed if this cannot parse an
      * argument.
      */
-    public static final CatalogedValueParameterModifier
-            OPTIONAL_WEAK = DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OPTIONAL_WEAK");
+    public static final CatalogedValueParameterModifier OPTIONAL_WEAK =
+            DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OPTIONAL_WEAK");
+
+    /**
+     * Indicates that if the parameter cannot be parsed and an {@link Entity}
+     * is the command source, return the player instead.
+     */
+    public static final CatalogedValueParameterModifier OR_ENTITY_SOURCE =
+            DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OR_ENTITY_SOURCE");
+
+    /**
+     * Indicates that if the parameter cannot be parsed, return the executing
+     * {@link CommandSource} instead.
+     */
+    public static final CatalogedValueParameterModifier OR_SOURCE =
+            DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OR_SOURCE");
+
+    /**
+     * Indicates that if the parameter cannot be parsed and a {@link Player}
+     * is the command source, return the player instead.
+     */
+    public static final CatalogedValueParameterModifier OR_PLAYER_SOURCE =
+            DummyObjectProvider.createFor(CatalogedValueParameterModifier.class, "OR_PLAYER_SOURCE");
 
     // SORTFIELDS:OFF
 

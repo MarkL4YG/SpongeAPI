@@ -22,9 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.command.parameter.managed;
+package org.spongepowered.api.command.parameter.managed.standard;
 
 import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.command.parameter.managed.ValueParameter;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
 @CatalogedBy(CatalogedValueParameters.class)

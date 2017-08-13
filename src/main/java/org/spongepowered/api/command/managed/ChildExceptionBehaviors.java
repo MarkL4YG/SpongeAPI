@@ -28,8 +28,8 @@ import org.spongepowered.api.command.Command;
 import org.spongepowered.api.util.generator.dummy.DummyObjectProvider;
 
 /**
- * The possible behaviors of a {@link Command} built using
- * {@link Command.Builder} when a child command throws an exception.
+ * The possible behaviors of a {@link Command} when a child command throws an
+ * exception.
  */
 public final class ChildExceptionBehaviors {
 

@@ -22,4 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault package org.spongepowered.api.command.parameter.managed.factories;
+package org.spongepowered.api.command.parameter.managed.standard;
+
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.command.parameter.managed.ValueParameterModifier;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+@CatalogedBy(CatalogedValueParameterModifiers.class)
+public interface CatalogedValueParameterModifier extends ValueParameterModifier, CatalogType {
+
+}

@@ -33,8 +33,7 @@ public interface ValueParameter extends ValueCompleter, ValueParser, ValueUsage 
     /**
      * Gets the usage string for the argument.
      *
-     * <p>Default implemented for {@link ValueParameters} to simply return the
-     * key.</p>
+     * <p>Default implemented to simply return the key.</p>
      *
      * @param key The {@link Text} that defines the parameter key
      * @param source The source requesting the usage

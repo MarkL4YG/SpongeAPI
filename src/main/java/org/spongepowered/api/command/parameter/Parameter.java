@@ -24,28 +24,27 @@
  */
 package org.spongepowered.api.command.parameter;
 
-import com.google.common.collect.Lists;
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.parameter.managed.CatalogedValueParameterModifiers;
-import org.spongepowered.api.command.parameter.managed.CatalogedValueParameters;
 import org.spongepowered.api.command.parameter.managed.ValueCompleter;
 import org.spongepowered.api.command.parameter.managed.ValueParameter;
 import org.spongepowered.api.command.parameter.managed.ValueParameterModifier;
-import org.spongepowered.api.command.parameter.managed.ValueParameterModifiers;
-import org.spongepowered.api.command.parameter.managed.ValueParameters;
 import org.spongepowered.api.command.parameter.managed.ValueParser;
 import org.spongepowered.api.command.parameter.managed.ValueUsage;
+import org.spongepowered.api.command.parameter.managed.standard.CatalogedValueParameterModifiers;
+import org.spongepowered.api.command.parameter.managed.standard.CatalogedValueParameters;
+import org.spongepowered.api.command.parameter.managed.standard.VariableValueParameterModifiers;
+import org.spongepowered.api.command.parameter.managed.standard.VariableValueParameters;
 import org.spongepowered.api.command.parameter.token.CommandArgs;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.ResettableBuilder;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -141,6 +140,124 @@ public interface Parameter {
      */
     static Parameter seq(Iterable<Parameter> parameters) {
         return Sponge.getRegistry().createBuilder(SequenceBuilder.class).then(parameters).build();
+    }
+
+    // Convenience methods for getting the common parameter types - all in once place.
+    // Modifiers (for the most part) are on the Parameter.Builder itself.
+
+    static Parameter.Builder bool() {
+        return Parameter.builder().setParser(CatalogedValueParameters.BOOLEAN);
+    }
+
+    static Parameter.Builder dimension() {
+        return Parameter.builder().setParser(CatalogedValueParameters.DIMENSION);
+    }
+
+    static Parameter.Builder duration() {
+        return Parameter.builder().setParser(CatalogedValueParameters.DURATION);
+    }
+
+    static Parameter.Builder doubleNumber() {
+        return Parameter.builder().setParser(CatalogedValueParameters.DOUBLE);
+    }
+
+    static Parameter.Builder entity() {
+        return Parameter.builder().setParser(CatalogedValueParameters.ENTITY);
+    }
+
+    static Parameter.Builder entityOrSource() {
+        return entity().modifier(CatalogedValueParameterModifiers.OR_ENTITY_SOURCE);
+    }
+
+    static Parameter.Builder integerNumber() {
+        return Parameter.builder().setParser(CatalogedValueParameters.INTEGER);
+    }
+
+    static Parameter.Builder location() {
+        return Parameter.builder().setParser(CatalogedValueParameters.LOCATION);
+    }
+
+    static Parameter.Builder longNumber() {
+        return Parameter.builder().setParser(CatalogedValueParameters.LONG);
+    }
+
+    static Parameter.Builder player() {
+        return Parameter.builder().setParser(CatalogedValueParameters.PLAYER);
+    }
+
+    static Parameter.Builder playerOrSource() {
+        return player().modifier(CatalogedValueParameterModifiers.OR_PLAYER_SOURCE);
+    }
+
+    static Parameter.Builder plugin() {
+        return Parameter.builder().setParser(CatalogedValueParameters.PLUGIN);
+    }
+
+    static Parameter.Builder remainingJoinedStrings() {
+        return Parameter.builder().setParser(CatalogedValueParameters.REMAINING_JOINED_STRINGS);
+    }
+
+    static Parameter.Builder remainingRawJoinedStrings() {
+        return Parameter.builder().setParser(CatalogedValueParameters.REMAINING_RAW_JOINED_STRINGS);
+    }
+
+    static Parameter.Builder string() {
+        return Parameter.builder().setParser(CatalogedValueParameters.STRING);
+    }
+
+    static Parameter.Builder user() {
+        return Parameter.builder().setParser(CatalogedValueParameters.USER);
+    }
+
+    static Parameter.Builder userOrSource() {
+        return user().modifier(CatalogedValueParameterModifiers.OR_PLAYER_SOURCE);
+    }
+
+    static Parameter.Builder vector3d() {
+        return Parameter.builder().setParser(CatalogedValueParameters.VECTOR3D);
+    }
+
+    static Parameter.Builder worldProperties() {
+        return Parameter.builder().setParser(CatalogedValueParameters.WORLD_PROPERTIES);
+    }
+
+    static <T extends CatalogType> Parameter.Builder catalogedElement(Class<T> type) {
+        return Parameter.builder().setParser(VariableValueParameters.catalogedElementParameterBuilder().setCatalogedType(type)
+                .prefix("minecraft")
+                .prefix("sponge")
+                .build());
+    }
+
+    static Parameter.Builder choices(String... choices) {
+        VariableValueParameters.StaticChoicesBuilder builder = VariableValueParameters.staticChoicesBuilder().setShowInUsage(true);
+        for (String choice : choices) {
+            builder.choice(choice);
+        }
+
+        return Parameter.builder().setParser(builder.build());
+    }
+
+    static Parameter.Builder choices(Map<String, ?> choices) {
+        return Parameter.builder().setParser(VariableValueParameters.staticChoicesBuilder().choices(choices).setShowInUsage(true).build());
+    }
+
+    static Parameter.Builder choices(Supplier<Iterable<String>> choices, Function<String, ?> valueFunction) {
+        return Parameter.builder().setParser(
+                VariableValueParameters.dynamicChoicesBuilder().setShowInUsage(true).setChoices(choices).setResults(valueFunction).build());
+    }
+
+    static <T extends Enum<T>> Parameter.Builder enumValue(Class<T> enumClass) {
+        return Parameter.builder().setParser(VariableValueParameters.enumBuilder().setEnumClass(enumClass).build());
+    }
+
+    static Parameter.Builder literal(Object returnedValue, String... literal) {
+        Iterable<String> iterable = Arrays.asList(literal);
+        return literal(returnedValue, () -> iterable);
+    }
+
+    static Parameter.Builder literal(Object returnedValue, Supplier<Iterable<String>> literalSupplier) {
+        return Parameter.builder()
+                .setParser(VariableValueParameters.literalBuilder().setReturnValue(returnedValue).setLiteral(literalSupplier).build());
     }
 
     /**
@@ -317,282 +434,9 @@ public interface Parameter {
         // Convenience methods
 
         /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#BOOLEAN}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder bool() {
-            return setParser(CatalogedValueParameters.BOOLEAN);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#DIMENSION}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder dimension() {
-            return setParser(CatalogedValueParameters.DIMENSION);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#DURATION}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder duration() {
-            return setParser(CatalogedValueParameters.DURATION);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#DOUBLE}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder doubleNumber() {
-            return setParser(CatalogedValueParameters.DOUBLE);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#ENTITY}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder entity() {
-            return setParser(CatalogedValueParameters.ENTITY);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#ENTITY_OR_SOURCE}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder entityOrSource() {
-            return setParser(CatalogedValueParameters.ENTITY_OR_SOURCE);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#INTEGER}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder integerNumber() {
-            return setParser(CatalogedValueParameters.INTEGER);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#LOCATION}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder location() {
-            return setParser(CatalogedValueParameters.LOCATION);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#LONG}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder longNumber() {
-            return setParser(CatalogedValueParameters.LONG);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#PLAYER}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder player() {
-            return setParser(CatalogedValueParameters.PLAYER);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#PLAYER_OR_SOURCE}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder playerOrSource() {
-            return setParser(CatalogedValueParameters.PLAYER_OR_SOURCE);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#PLUGIN}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder plugin() {
-            return setParser(CatalogedValueParameters.PLUGIN);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#REMAINING_JOINED_STRINGS}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder remainingJoinedStrings() {
-            return setParser(CatalogedValueParameters.REMAINING_JOINED_STRINGS);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#REMAINING_RAW_JOINED_STRINGS}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder remainingRawJoinedStrings() {
-            return setParser(CatalogedValueParameters.REMAINING_RAW_JOINED_STRINGS);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#STRING}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder string() {
-            return setParser(CatalogedValueParameters.STRING);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#USER}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder user() {
-            return setParser(CatalogedValueParameters.USER);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#USER_OR_SOURCE}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder userOrSource() {
-            return setParser(CatalogedValueParameters.USER_OR_SOURCE);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#VECTOR3D}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder vector3d() {
-            return setParser(CatalogedValueParameters.VECTOR3D);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link CatalogedValueParameters#WORLD_PROPERTIES}.
-         *
-         * @return This builder, for chaining
-         */
-        default Builder worldProperties() {
-            return setParser(CatalogedValueParameters.WORLD_PROPERTIES);
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#catalogedElement(Class)}.
-         *
-         * @param type The type of {@link CatalogType} to retrieve
-         * @return This builder, for chaining
-         */
-        default <T extends CatalogType> Builder catalogedElement(Class<T> type) {
-            return setParser(ValueParameters.catalogedElement(type));
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#choices(String...)}.
-         *
-         * @param choices The choices.
-         * @return This builder, for chaining
-         */
-        default Builder choices(String... choices) {
-            return setParser(ValueParameters.choices(choices));
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#choices(Map)}.
-         *
-         * @param choices The choices.
-         * @return This builder, for chaining
-         */
-        default Builder choices(Map<String, ?> choices) {
-            return setParser(ValueParameters.choices(choices));
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#choices(String...)}.
-         *
-         * @param choices The choices.
-         * @param valueFunction A function that transforms the choice into a
-         *                      returnable value
-         * @return This builder, for chaining
-         */
-        default Builder choices(Supplier<Collection<String>> choices, Function<String, ?> valueFunction) {
-            return setParser(ValueParameters.choices(true, choices, valueFunction));
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#enumValue(Class)}.
-         *
-         * @param enumClass The {@link Enum} to use.
-         * @return This builder, for chaining
-         */
-        default <T extends Enum<T>> Builder enumValue(Class<T> enumClass) {
-            return setParser(ValueParameters.enumValue(enumClass));
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#literal(Object, String...)}.
-         *
-         * @param returnedValue The value to return if one of the provided
-         *                      literals is matched
-         * @param literal The literals, one of which needs to match
-         * @return This builder, for chaining
-         */
-        default Builder literal(@Nullable Object returnedValue, String... literal) {
-            return setParser(ValueParameters.literal(returnedValue, literal));
-        }
-
-        /**
-         * Equivalent to {@link #setParser(ValueParser)} with
-         * {@link ValueParameters#literal(Object, Supplier)}.
-         *
-         * @param returnedValue The value to return if one of the provided
-         *                      literals is matched
-         * @param literalSupplier A {@link Supplier} that will return the
-         *                        allowable literals at runtime
-         * @return This builder, for chaining
-         */
-        default Builder literal(@Nullable Object returnedValue, Supplier<Iterable<String>> literalSupplier) {
-            return setParser(ValueParameters.literal(returnedValue, literalSupplier));
-        }
-
-        /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#ONLY_ONE}.
+         * Adds a check to ensure that only one value is in the context under
+         * this parameter's key. If there are more than one, or zero, an
+         * {@link ArgumentParseException} will be thrown.
          *
          * @return This builder, for chaining
          */
@@ -601,8 +445,8 @@ public interface Parameter {
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#ALL_OF}.
+         * Indicates that the parameter should iterate over and parse all
+         * remaining elements in the provided set of arguments.
          *
          * @return This builder, for chaining
          */
@@ -611,8 +455,11 @@ public interface Parameter {
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#OPTIONAL}.
+         * Marks this parameter as optional, such that if an argument does not
+         * exist, an exception is not thrown.
+         *
+         * <p>This should not be used in conjunction with other optional
+         * modifiers.</p>
          *
          * @return This builder, for chaining
          */
@@ -621,8 +468,11 @@ public interface Parameter {
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link CatalogedValueParameterModifiers#OPTIONAL_WEAK}.
+         * Marks this parameter as optional, such that if an argument does not
+         * exist <em>or</em> cannot be parsed, an exception is not thrown.
+         *
+         * <p>This should not be used in conjunction with other optional
+         * modifiers.</p>
          *
          * @return This builder, for chaining
          */
@@ -631,52 +481,96 @@ public interface Parameter {
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#defaultValue(Object)}.
+         * Marks this parameter as optional, such that if an argument does not
+         * exist <em>or</em> cannot be parsed, an exception is not thrown, and
+         * the value provided is inserted into the context instead.
+         *
+         * <p>This should not be used in conjunction with other optional
+         * modifiers.</p>
          *
          * @param defaultValue The default value if this parameter does not
-         *                     enter a value into the
-         *                     {@link CommandContext}
+         *                     enter a value into the {@link CommandContext}
          * @return This builder, for chaining
          */
         default Builder optionalOrDefault(Object defaultValue) {
-            return modifiers(ValueParameterModifiers.defaultValue(defaultValue));
+            Optional<?> result = Optional.of(defaultValue);
+            return optionalOrDefault(source -> result);
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#defaultValue(Object)}.
+         * Marks this parameter as optional, such that if an argument does not
+         * exist <em>or</em> cannot be parsed, the supplier is executed instead.
+         * If this returns a value, it is inserted into the context under the
+         * parameter's key, otherwise, an {@link ArgumentParseException} is
+         * thrown.
          *
-         * @param defaultValueSupplier Supplies a default value if this
-         *                             parameter does not enter a value into
-         *                             the {@link CommandContext}
+         * <p>If a default value is inserted into the context, the command
+         * parser will attempt to parse the argument this element couldn't
+         * parse using the next parser in the chain.</p>
+         *
+         * <p>This should not be used in conjuction with other optional
+         * modifiers.</p>
+         *
+         * @param defaultValueSupplier A {@link Supplier} that returns an object
+         *                             to insert into the context if this
+         *                             parameter cannot parse the argument. If
+         *                             the supplier returns an empty optional,
+         *                             the parameter will throw an exception, as
+         *                             if the parameter is not optional.
          * @return This builder, for chaining
          */
-        default Builder optionalOrDefaultSupplier(Supplier<Object> defaultValueSupplier) {
-            return modifiers(ValueParameterModifiers.defaultValueSupplier(defaultValueSupplier));
+        default Builder optionalOrDefault(Supplier<?> defaultValueSupplier) {
+            return optionalOrDefault(source -> Optional.ofNullable(defaultValueSupplier.get()));
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#repeated(int)}.
+         * Marks this parameter as optional, such that if an argument does not
+         * exist <em>or</em> cannot be parsed, the function is executed instead.
+         * If this returns a value, it is inserted into the context under the
+         * parameter's key, otherwise, an {@link ArgumentParseException} is
+         * thrown.
+         *
+         * <p>If a default value is inserted into the context, the command
+         * parser will attempt to parse the argument this element couldn't
+         * parse using the next parser in the chain.</p>
+         *
+         * <p>This should not be used in conjuction with other optional
+         * modifiers.</p>
+         *
+         * @param defaultValueFunction A {@link Function} that returns an object
+         *                             to insert into the context if this
+         *                             parameter cannot parse the argument. If
+         *                             the supplier returns an empty optional,
+         *                             the parameter will throw an exception, as
+         *                             if the parameter is not optional.
+         * @return This builder, for chaining
+         */
+        default Builder optionalOrDefault(Function<CommandSource, Optional<?>> defaultValueFunction) {
+            return modifier(VariableValueParameterModifiers.defaultValueModifierBuilder().setDefaultValueFunction(defaultValueFunction).build());
+        }
+
+        /**
+         * Requires the parameter to be provided a certain number of times.
          *
          * @param times The number of times to repeat this parameter
          * @return This builder, for chaining
          */
         default Builder repeated(int times) {
-            return modifiers(ValueParameterModifiers.repeated(times));
+            return modifiers(VariableValueParameterModifiers.repeatedValueModifierBuilder().setNumberOfTimes(times).build());
         }
 
         /**
-         * Equivalent to {@link #modifiers(ValueParameterModifier...)} with
-         * {@link ValueParameterModifiers#selector(Class, boolean, boolean)}.
+         * Specifies that the parameter could be satisfied by entities returned from
+         * a selector instead.
          *
-         * <p>This instructs the parameter to attempt to parse a selector if it
-         * is there, restricting the return to the entity type provided.</p>
+         * <p>If onlyOne is false, then developers <strong>must</strong> account for
+         * the fact that more than one entity can be returned. If this is true, then
+         * the parameter will throw an exception if more than one entity is returned
+         * </p>
          *
          * <p>In-built parameter types where it makes sense to support selectors
-         * (such as {@link ValueParameters#player()} do not need this modifier
-         * as they will already check selectors.
+         * (such as {@link CatalogedValueParameters#PLAYER} do not need this
+         * modifier as they will already check selectors.
          * </p>
          *
          * <p>If a selector is detected, the associated {@link ValueParameter}
@@ -691,7 +585,13 @@ public interface Parameter {
          * @return This builder, for chaining
          */
         default Builder supportSelectors(Class<? extends Entity> entityType, boolean onlyOne, boolean strict) {
-            return modifiers(ValueParameterModifiers.selector(entityType, onlyOne, strict));
+            return modifiers(
+                    VariableValueParameterModifiers
+                            .selectorValueModifierBuilder()
+                            .entityType(entityType)
+                            .setExpectOne(onlyOne)
+                            .setStrict(strict)
+                            .build());
         }
 
         /**
